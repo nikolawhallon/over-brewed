@@ -9,12 +9,10 @@ script = ExtResource("1_e05a3")
 [node name="Replicated" type="Node" parent="." unique_id=217975276]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1350542115]
+_spawnable_scenes = PackedStringArray("uid://cw0q0nb1c7xba")
 spawn_path = NodePath("../Replicated")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1835027083]
-
-[node name="GhostTimer" type="Timer" parent="." unique_id=315223487]
-autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=793026886]
 
@@ -34,5 +32,3 @@ layout_mode = 2
 size_flags_vertical = 0
 text = "SCORE: 0"
 label_settings = ExtResource("3_olpmc")
-
-[connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]

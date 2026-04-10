@@ -45,7 +45,7 @@ func _input(event):
 func announce_start_game(random_seed, _peers):
 	state = State.STARTING
 
-@rpc("any_peer", "call_local", "unreliable")
+@rpc("any_peer", "call_local", "reliable")
 func request_spawn_barista():
 	var barista = load("res://scenes/barista.tscn").instantiate()
 	barista.init(multiplayer.get_remote_sender_id(), Vector2.ZERO)
