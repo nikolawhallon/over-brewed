@@ -5,10 +5,12 @@ const SPEED = 50.0
 
 @export var peer_id = -1
 @export var direction = Vector2.ZERO
+@export var cafe = ""
 var facing = null
 
-func init(initial_peer_id, initial_global_position):
+func init(initial_peer_id, initial_cafe, initial_global_position):
 	peer_id = initial_peer_id
+	cafe = initial_cafe
 	global_position = initial_global_position
 
 func _ready():

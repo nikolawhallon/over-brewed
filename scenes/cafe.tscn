@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://d30p8sfyml00g"]
+
+[ext_resource type="PackedScene" uid="uid://v3crmiqayde5" path="res://scenes/slot.tscn" id="1_0dv7p"]
+[ext_resource type="Script" uid="uid://c8vtlqys2nhih" path="res://scenes/cafe.gd" id="1_a6vgn"]
+
+[node name="Cafe" type="Node2D" unique_id=1340216554]
+script = ExtResource("1_a6vgn")
+
+[node name="Slot1" parent="." unique_id=956566724 instance=ExtResource("1_0dv7p")]
+position = Vector2(-32, 0)
+
+[node name="Slot2" parent="." unique_id=188102306 instance=ExtResource("1_0dv7p")]
+
+[node name="Slot3" parent="." unique_id=1396646440 instance=ExtResource("1_0dv7p")]
+position = Vector2(32, 0)
+
+[connection signal="body_entered" from="Slot1" to="." method="_on_slot_1_body_entered"]
+[connection signal="body_exited" from="Slot1" to="." method="_on_slot_1_body_exited"]
+[connection signal="body_entered" from="Slot2" to="." method="_on_slot_2_body_entered"]
+[connection signal="body_exited" from="Slot2" to="." method="_on_slot_2_body_exited"]
+[connection signal="body_entered" from="Slot3" to="." method="_on_slot_3_body_entered"]
+[connection signal="body_exited" from="Slot3" to="." method="_on_slot_3_body_exited"]

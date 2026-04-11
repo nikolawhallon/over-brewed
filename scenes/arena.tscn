@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dn0a8nh72gupb" path="res://scenes/arena.gd" id="1_e05a3"]
 [ext_resource type="LabelSettings" uid="uid://bw7f23l3xceoc" path="res://resources/label_8.tres" id="3_olpmc"]
+[ext_resource type="PackedScene" uid="uid://d30p8sfyml00g" path="res://scenes/cafe.tscn" id="3_xdvfk"]
 
 [node name="Arena" type="Node2D" unique_id=1945760612 groups=["Arena"]]
 script = ExtResource("1_e05a3")
@@ -9,26 +10,53 @@ script = ExtResource("1_e05a3")
 [node name="Replicated" type="Node" parent="." unique_id=217975276]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1350542115]
-_spawnable_scenes = PackedStringArray("uid://cw0q0nb1c7xba")
+_spawnable_scenes = PackedStringArray("uid://cw0q0nb1c7xba", "uid://brjxky5ptfplk")
 spawn_path = NodePath("../Replicated")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1835027083]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=793026886]
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=152495920]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="LeftContainer" type="MarginContainer" parent="CanvasLayer" unique_id=152495920]
+offset_right = 72.0
+offset_bottom = 16.0
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="ScoreLabel" type="Label" parent="CanvasLayer/MarginContainer" unique_id=1037654019]
+[node name="LeftScore" type="Label" parent="CanvasLayer/LeftContainer" unique_id=1037654019]
 layout_mode = 2
 size_flags_vertical = 0
-text = "SCORE: 0"
+text = "LEFT: 0"
 label_settings = ExtResource("3_olpmc")
+
+[node name="RightContainer" type="MarginContainer" parent="CanvasLayer" unique_id=1110379391]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_bottom = 8.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="RightScore" type="Label" parent="CanvasLayer/RightContainer" unique_id=1318009434]
+layout_mode = 2
+text = "RIGHT: 0"
+label_settings = ExtResource("3_olpmc")
+
+[node name="CustomerTimer" type="Timer" parent="." unique_id=613467295]
+autostart = true
+
+[node name="LeftCafe" parent="." unique_id=1340216554 instance=ExtResource("3_xdvfk")]
+position = Vector2(-64, -32)
+
+[node name="RightCafe" parent="." unique_id=435030877 instance=ExtResource("3_xdvfk")]
+position = Vector2(64, -32)
+
+[connection signal="timeout" from="CustomerTimer" to="." method="_on_customer_timer_timeout"]
+[connection signal="customer_left" from="LeftCafe" to="." method="_on_left_cafe_customer_left"]
+[connection signal="customer_left" from="RightCafe" to="." method="_on_right_cafe_customer_left"]

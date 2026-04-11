@@ -45,6 +45,9 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:direction")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath(".:cafe")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [node name="Barista" type="CharacterBody2D" unique_id=892979916 groups=["Barista"]]
 script = ExtResource("1_xwpi6")

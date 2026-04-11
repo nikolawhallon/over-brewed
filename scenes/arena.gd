@@ -13,7 +13,8 @@ enum State {
 }
 
 var state = State.VOID
-var score = 0
+var left_score = 0
+var right_score = 0
 
 func _process(_delta: float) -> void:
 	if state == State.STARTING:
@@ -47,11 +48,53 @@ func announce_start_game(random_seed, _peers):
 
 @rpc("any_peer", "call_local", "reliable")
 func request_spawn_barista():
+	var cafe = "left"
+	for barista in NodeUtils.get_nodes_in_group_for_node(self, "Barista"):
+		if barista.cafe == "left":
+			cafe = "right"
+
 	var barista = load("res://scenes/barista.tscn").instantiate()
-	barista.init(multiplayer.get_remote_sender_id(), Vector2.ZERO)
+	barista.init(multiplayer.get_remote_sender_id(), cafe, Vector2.ZERO)
 	$Replicated.add_child(barista, true)
 
 @rpc("authority", "reliable")
-func announce_update_score(new_score: int) -> void:
-	score = new_score
-	$CanvasLayer/MarginContainer/ScoreLabel.text = "SCORE: %d" % score
+func announce_update_left_score(new_score: int) -> void:
+	left_score = new_score
+	$CanvasLayer/LeftContainer/LeftScore.text = "LEFT: %d" % left_score
+
+@rpc("authority", "reliable")
+func announce_update_right_score(new_score: int) -> void:
+	right_score = new_score
+	$CanvasLayer/RightContainer/RightScore.text = "RIGHT: %d" % right_score
+
+func _on_customer_timer_timeout() -> void:
+	if not multiplayer.is_server():
+		return
+
+	var customer = load("res://scenes/customer.tscn").instantiate()
+	customer.init(Vector2(-320, 0), Vector2(640, 0))
+	$Replicated.add_child(customer, true)
+
+func _on_left_cafe_customer_left() -> void:
+	if not multiplayer.is_server():
+		return
+
+	left_score += 1
+	for peer in NodeUtils.get_first_ancestor_in_group_for_node(self, "App").get_peer_ids_for_match(match_id):
+		if peer == 1:
+			continue
+		announce_update_left_score.rpc_id(peer, left_score)
+
+	announce_update_left_score(left_score)
+
+func _on_right_cafe_customer_left() -> void:
+	if not multiplayer.is_server():
+		return
+
+	right_score += 1
+	for peer in NodeUtils.get_first_ancestor_in_group_for_node(self, "App").get_peer_ids_for_match(match_id):
+		if peer == 1:
+			continue
+		announce_update_right_score.rpc_id(peer, right_score)
+
+	announce_update_right_score(right_score)
