@@ -4,7 +4,7 @@ extends CharacterBody2D
 const SPEED = 50.0
 @export var direction = Vector2.ZERO
 var target = null
-var cafe = null # NOTE: object references are fine if only the server uses them
+var cafe_path = NodePath()
 
 enum State {
 	VOID,
@@ -62,14 +62,16 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Barista"):
 		var arena = NodeUtils.get_first_ancestor_in_group_for_node(self, "Arena")
 		if body.cafe == "left":
-			cafe = arena.get_node("LeftCafe")
-			var new_target = cafe.get_slot()
+			var cafe = arena.get_node("LeftCafe")
+			cafe_path = cafe.get_path()
+			var new_target = cafe.get_slot(self.get_path())
 			if new_target != null:
 				target = new_target
 				state = State.ENTERING
-		if body.cafe == "right":
-			cafe = arena.get_node("RightCafe")
-			var new_target = cafe.get_slot()
+		elif body.cafe == "right":
+			var cafe = arena.get_node("RightCafe")
+			cafe_path = cafe.get_path()
+			var new_target = cafe.get_slot(self.get_path())
 			if new_target != null:
 				target = new_target
 				state = State.ENTERING
@@ -78,8 +80,10 @@ func _on_wait_timer_timeout() -> void:
 	if not multiplayer.is_server():
 		return
 
-	if cafe != null:
+	if not cafe_path.is_empty():
+		var cafe = get_node(cafe_path)
 		cafe.customer_served()
+		cafe.release_slot(self.get_path())
 
 	target = Vector2(640, 0)
 	state = State.LEAVING
