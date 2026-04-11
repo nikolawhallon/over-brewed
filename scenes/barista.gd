@@ -25,18 +25,27 @@ func _physics_process(_delta: float) -> void:
 		$Beans.visible = true
 		$Coffee.visible = false
 		$Waste.visible = false
+		$Newspaper.visible = false
 	elif holding == "coffee":
 		$Beans.visible = false
 		$Coffee.visible = true
 		$Waste.visible = false
+		$Newspaper.visible = false
 	elif holding == "waste":
 		$Beans.visible = false
 		$Coffee.visible = false
 		$Waste.visible = true
+		$Newspaper.visible = false
+	elif holding == "newspaper":
+		$Beans.visible = false
+		$Coffee.visible = false
+		$Waste.visible = false
+		$Newspaper.visible = true
 	else:
 		$Beans.visible = false
 		$Coffee.visible = false
 		$Waste.visible = false
+		$Newspaper.visible = false
 
 	if direction != Vector2.ZERO:
 		$AnimatedSprite2D.play("move")

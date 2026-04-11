@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://du1pfojcb8eg8"]
 
 [ext_resource type="Script" uid="uid://dn0a8nh72gupb" path="res://scenes/arena.gd" id="1_e05a3"]
+[ext_resource type="PackedScene" uid="uid://0o18bpyubgas" path="res://scenes/newspaper.tscn" id="3_7ft05"]
 [ext_resource type="LabelSettings" uid="uid://bw7f23l3xceoc" path="res://resources/label_8.tres" id="3_olpmc"]
 [ext_resource type="PackedScene" uid="uid://d30p8sfyml00g" path="res://scenes/cafe.tscn" id="3_xdvfk"]
 
@@ -14,6 +15,9 @@ position = Vector2(-64, -32)
 
 [node name="RightCafe" parent="Replicated" unique_id=435030877 instance=ExtResource("3_xdvfk")]
 position = Vector2(64, -32)
+
+[node name="Newspaper" parent="Replicated" unique_id=799578802 instance=ExtResource("3_7ft05")]
+position = Vector2(0, 64)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1350542115]
 _spawnable_scenes = PackedStringArray("uid://cw0q0nb1c7xba", "uid://brjxky5ptfplk", "uid://d30p8sfyml00g")

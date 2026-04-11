@@ -64,6 +64,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			cafe.release_slot(self.get_path())
 			target = Vector2(640, 0)
 			state = State.LEAVING
+		elif body.holding == "newspaper":
+			var cafe = get_node(cafe_path)
+			cafe.customer_left.emit(false)
+			cafe.release_slot(self.get_path())
+			target = Vector2(640, 0)
+			state = State.LEAVING
 
 	if state == State.COMMUTING and body.is_in_group("Barista"):
 		var arena = NodeUtils.get_first_ancestor_in_group_for_node(self, "Arena")

@@ -73,6 +73,11 @@ visible = false
 position = Vector2(4, -4)
 texture = ExtResource("4_17x05")
 
+[node name="Newspaper" type="Sprite2D" parent="." unique_id=170513733]
+visible = false
+position = Vector2(4, -4)
+texture = ExtResource("2_b8crr")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=240989202]
 sprite_frames = SubResource("SpriteFrames_mvyd6")
 animation = &"move"

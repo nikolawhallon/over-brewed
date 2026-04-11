@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://0o18bpyubgas"]
+
+[ext_resource type="Texture2D" uid="uid://co3xd5ifry28q" path="res://assets/beans.png" id="1_ge38h"]
+[ext_resource type="Script" uid="uid://dfibmidai58b1" path="res://scenes/newspaper.gd" id="1_orewu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_orewu"]
+radius = 4.0
+
+[node name="Newspaper" type="Area2D" unique_id=799578802]
+script = ExtResource("1_orewu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=366991720]
+texture = ExtResource("1_ge38h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=225658741]
+shape = SubResource("CircleShape2D_orewu")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
