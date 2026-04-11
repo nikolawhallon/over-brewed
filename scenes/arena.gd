@@ -75,8 +75,11 @@ func _on_customer_timer_timeout() -> void:
 	customer.init(Vector2(-320, 0), Vector2(640, 0))
 	$Replicated.add_child(customer, true)
 
-func _on_left_cafe_customer_left() -> void:
+func _on_left_cafe_customer_left(served) -> void:
 	if not multiplayer.is_server():
+		return
+
+	if not served:
 		return
 
 	left_score += 1
@@ -87,8 +90,11 @@ func _on_left_cafe_customer_left() -> void:
 
 	announce_update_left_score(left_score)
 
-func _on_right_cafe_customer_left() -> void:
+func _on_right_cafe_customer_left(served) -> void:
 	if not multiplayer.is_server():
+		return
+
+	if not served:
 		return
 
 	right_score += 1

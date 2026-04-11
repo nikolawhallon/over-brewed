@@ -9,8 +9,14 @@ script = ExtResource("1_e05a3")
 
 [node name="Replicated" type="Node" parent="." unique_id=217975276]
 
+[node name="LeftCafe" parent="Replicated" unique_id=1340216554 instance=ExtResource("3_xdvfk")]
+position = Vector2(-64, -32)
+
+[node name="RightCafe" parent="Replicated" unique_id=435030877 instance=ExtResource("3_xdvfk")]
+position = Vector2(64, -32)
+
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1350542115]
-_spawnable_scenes = PackedStringArray("uid://cw0q0nb1c7xba", "uid://brjxky5ptfplk")
+_spawnable_scenes = PackedStringArray("uid://cw0q0nb1c7xba", "uid://brjxky5ptfplk", "uid://d30p8sfyml00g")
 spawn_path = NodePath("../Replicated")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1835027083]
@@ -51,12 +57,6 @@ label_settings = ExtResource("3_olpmc")
 [node name="CustomerTimer" type="Timer" parent="." unique_id=613467295]
 autostart = true
 
-[node name="LeftCafe" parent="." unique_id=1340216554 instance=ExtResource("3_xdvfk")]
-position = Vector2(-64, -32)
-
-[node name="RightCafe" parent="." unique_id=435030877 instance=ExtResource("3_xdvfk")]
-position = Vector2(64, -32)
-
+[connection signal="customer_left" from="Replicated/LeftCafe" to="." method="_on_left_cafe_customer_left"]
+[connection signal="customer_left" from="Replicated/RightCafe" to="." method="_on_right_cafe_customer_left"]
 [connection signal="timeout" from="CustomerTimer" to="." method="_on_customer_timer_timeout"]
-[connection signal="customer_left" from="LeftCafe" to="." method="_on_left_cafe_customer_left"]
-[connection signal="customer_left" from="RightCafe" to="." method="_on_right_cafe_customer_left"]

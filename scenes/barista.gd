@@ -6,6 +6,7 @@ const SPEED = 50.0
 @export var peer_id = -1
 @export var direction = Vector2.ZERO
 @export var cafe = ""
+@export var holding = ""
 var facing = null
 
 func init(initial_peer_id, initial_cafe, initial_global_position):
@@ -20,6 +21,23 @@ func _ready():
 		return
 
 func _physics_process(_delta: float) -> void:
+	if holding == "beans":
+		$Beans.visible = true
+		$Coffee.visible = false
+		$Waste.visible = false
+	elif holding == "coffee":
+		$Beans.visible = false
+		$Coffee.visible = true
+		$Waste.visible = false
+	elif holding == "waste":
+		$Beans.visible = false
+		$Coffee.visible = false
+		$Waste.visible = true
+	else:
+		$Beans.visible = false
+		$Coffee.visible = false
+		$Waste.visible = false
+
 	if direction != Vector2.ZERO:
 		$AnimatedSprite2D.play("move")
 	else:

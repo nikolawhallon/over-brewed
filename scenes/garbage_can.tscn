@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://coeutl0j6w2hm"]
+
+[ext_resource type="Texture2D" uid="uid://chthkkhu85tyo" path="res://assets/garbage-can.png" id="1_dxr07"]
+[ext_resource type="Script" uid="uid://dehyy28cckyq1" path="res://scenes/garbage_can.gd" id="1_eci1o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eci1o"]
+radius = 8.0
+
+[node name="GarbageCan" type="Area2D" unique_id=1325507682]
+script = ExtResource("1_eci1o")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1408953899]
+texture = ExtResource("1_dxr07")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=603717127]
+shape = SubResource("CircleShape2D_eci1o")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

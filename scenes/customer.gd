@@ -56,20 +56,26 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if not multiplayer.is_server():
 		return
 
-	if state != State.COMMUTING:
-		return
+	if state == State.WAITING and body.is_in_group("Barista"):
+		if body.holding == "coffee":
+			body.holding = ""
+			var cafe = get_node(cafe_path)
+			cafe.customer_left.emit(true)
+			cafe.release_slot(self.get_path())
+			target = Vector2(640, 0)
+			state = State.LEAVING
 
-	if body.is_in_group("Barista"):
+	if state == State.COMMUTING and body.is_in_group("Barista"):
 		var arena = NodeUtils.get_first_ancestor_in_group_for_node(self, "Arena")
 		if body.cafe == "left":
-			var cafe = arena.get_node("LeftCafe")
+			var cafe = arena.get_node("Replicated/LeftCafe")
 			cafe_path = cafe.get_path()
 			var new_target = cafe.get_slot(self.get_path())
 			if new_target != null:
 				target = new_target
 				state = State.ENTERING
 		elif body.cafe == "right":
-			var cafe = arena.get_node("RightCafe")
+			var cafe = arena.get_node("Replicated/RightCafe")
 			cafe_path = cafe.get_path()
 			var new_target = cafe.get_slot(self.get_path())
 			if new_target != null:
@@ -82,8 +88,7 @@ func _on_wait_timer_timeout() -> void:
 
 	if not cafe_path.is_empty():
 		var cafe = get_node(cafe_path)
-		cafe.customer_served()
+		cafe.customer_left.emit(false)
 		cafe.release_slot(self.get_path())
-
 	target = Vector2(640, 0)
 	state = State.LEAVING

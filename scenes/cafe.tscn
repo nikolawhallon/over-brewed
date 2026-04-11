@@ -2,6 +2,20 @@
 
 [ext_resource type="PackedScene" uid="uid://v3crmiqayde5" path="res://scenes/slot.tscn" id="1_0dv7p"]
 [ext_resource type="Script" uid="uid://c8vtlqys2nhih" path="res://scenes/cafe.gd" id="1_a6vgn"]
+[ext_resource type="PackedScene" uid="uid://dirct4jf8stvp" path="res://scenes/bean_bag.tscn" id="3_de0wi"]
+[ext_resource type="PackedScene" uid="uid://cp1imi0s70jb1" path="res://scenes/vacuum_brew.tscn" id="4_qifwr"]
+[ext_resource type="PackedScene" uid="uid://coeutl0j6w2hm" path="res://scenes/garbage_can.tscn" id="5_c2152"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_c2152"]
+properties/0/path = NodePath("VacuumBrew1:state")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("VacuumBrew2:state")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("VacuumBrew3:state")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [node name="Cafe" type="Node2D" unique_id=1340216554]
 script = ExtResource("1_a6vgn")
@@ -13,6 +27,24 @@ position = Vector2(-32, 0)
 
 [node name="Slot3" parent="." unique_id=1396646440 instance=ExtResource("1_0dv7p")]
 position = Vector2(32, 0)
+
+[node name="BeanBag" parent="." unique_id=1164690060 instance=ExtResource("3_de0wi")]
+position = Vector2(64, -64)
+
+[node name="VacuumBrew1" parent="." unique_id=1775694487 instance=ExtResource("4_qifwr")]
+position = Vector2(-32, -32)
+
+[node name="VacuumBrew2" parent="." unique_id=590269653 instance=ExtResource("4_qifwr")]
+position = Vector2(0, -32)
+
+[node name="VacuumBrew3" parent="." unique_id=1186177446 instance=ExtResource("4_qifwr")]
+position = Vector2(32, -32)
+
+[node name="GarbageCan" parent="." unique_id=1325507682 instance=ExtResource("5_c2152")]
+position = Vector2(0, -64)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1512198300]
+replication_config = SubResource("SceneReplicationConfig_c2152")
 
 [connection signal="body_entered" from="Slot1" to="." method="_on_slot_1_body_entered"]
 [connection signal="body_exited" from="Slot1" to="." method="_on_slot_1_body_exited"]

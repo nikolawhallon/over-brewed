@@ -6,9 +6,6 @@ var slot_1_customer_path = NodePath()
 var slot_2_customer_path = NodePath()
 var slot_3_customer_path = NodePath()
 
-func customer_served():
-	customer_left.emit()
-
 func get_slot(customer_path):
 	if slot_1_customer_path.is_empty():
 		slot_1_customer_path = customer_path

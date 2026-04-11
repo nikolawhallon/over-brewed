@@ -3,7 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://dgwemui1rsx5o" path="res://assets/barista/barista-idle-1.png" id="1_0dyjn"]
 [ext_resource type="Script" uid="uid://y0i2wrm80j8b" path="res://scenes/barista.gd" id="1_xwpi6"]
 [ext_resource type="Texture2D" uid="uid://b5pplpf63ns2u" path="res://assets/barista/barista-idle-2.png" id="2_5fsgc"]
+[ext_resource type="Texture2D" uid="uid://co3xd5ifry28q" path="res://assets/beans.png" id="2_b8crr"]
+[ext_resource type="Texture2D" uid="uid://cwjfgq4vft4mv" path="res://assets/coffee.png" id="3_q4d84"]
 [ext_resource type="Texture2D" uid="uid://bnwxe38ecmilq" path="res://assets/barista/barista-move-1.png" id="3_swm0g"]
+[ext_resource type="Texture2D" uid="uid://b6huvhb47w77d" path="res://assets/waste.png" id="4_17x05"]
 [ext_resource type="Texture2D" uid="uid://bcyfapbqex538" path="res://assets/barista/barista-move-2.png" id="4_k2txo"]
 [ext_resource type="PackedScene" uid="uid://crfcwsne50c0c" path="res://scenes/helpers/match_visibility.tscn" id="6_swm0g"]
 
@@ -48,9 +51,27 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath(".:cafe")
 properties/3/spawn = true
 properties/3/replication_mode = 1
+properties/4/path = NodePath(".:holding")
+properties/4/spawn = true
+properties/4/replication_mode = 1
 
 [node name="Barista" type="CharacterBody2D" unique_id=892979916 groups=["Barista"]]
 script = ExtResource("1_xwpi6")
+
+[node name="Beans" type="Sprite2D" parent="." unique_id=755426137]
+visible = false
+position = Vector2(4, -4)
+texture = ExtResource("2_b8crr")
+
+[node name="Coffee" type="Sprite2D" parent="." unique_id=371870849]
+visible = false
+position = Vector2(4, -4)
+texture = ExtResource("3_q4d84")
+
+[node name="Waste" type="Sprite2D" parent="." unique_id=729843024]
+visible = false
+position = Vector2(4, -4)
+texture = ExtResource("4_17x05")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=240989202]
 sprite_frames = SubResource("SpriteFrames_mvyd6")
