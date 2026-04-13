@@ -233,13 +233,18 @@ func connect_game(ip, port):
 
 func queue_game():
 	var peer = WebSocketMultiplayerPeer.new()
-	var result = peer.create_client("wss://overbrewed.vacuumbrewstudios.com")
+
+	var server_url = "wss://overbrewed.vacuumbrewstudios.com"
+	if OS.has_feature("staging"):
+		server_url = "wss://overbrewed.staging.vacuumbrewstudios.com"
+
+	var result = peer.create_client(server_url)
 	if result != OK:
 		print("Failed to connect: ", result)
 		return false
 
 	multiplayer.multiplayer_peer = peer
-	print("Connected to: wss://overbrewed.vacuumbrewstudios.com")
+	print("Connected to: ", server_url)
 
 	return true
 

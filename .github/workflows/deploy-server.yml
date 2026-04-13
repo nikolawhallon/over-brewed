@@ -2,11 +2,23 @@ name: Deploy server
 
 on:
   push:
-    branches: [main]
+    branches: [main]  # Deploy to staging
+  release:
+    types: [published]  # Deploy to production
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        type: choice
+        options:
+          - staging
+          - production
+        default: 'staging'
 
 env:
   GODOT_VERSION: 4.6.2
+  VACUUMBREWSTUDIOS_HOST: vacuumbrewstudios.com
 
 jobs:
   deploy:
@@ -15,14 +27,31 @@ jobs:
     container:
       image: barichello/godot-ci:4.6.2
 
-    env:
-      NAME: ${{ github.event.repository.name }}
-      PORT: 5002
-      VACUUMBREWSTUDIOS_HOST: vacuumbrewstudios.com
-
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
+
+      - name: Determine environment
+        id: env
+        run: |
+          BASE_NAME="${{ github.event.repository.name }}"
+
+          if [ "${{ github.event_name }}" == "release" ]; then
+            echo "environment=production" >> $GITHUB_OUTPUT
+            echo "feature_flag=" >> $GITHUB_OUTPUT
+            echo "port=5004" >> $GITHUB_OUTPUT
+            echo "deploy_name=${BASE_NAME}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event_name }}" == "workflow_dispatch" ] && [ "${{ inputs.environment }}" == "production" ]; then
+            echo "environment=production" >> $GITHUB_OUTPUT
+            echo "feature_flag=" >> $GITHUB_OUTPUT
+            echo "port=5004" >> $GITHUB_OUTPUT
+            echo "deploy_name=${BASE_NAME}" >> $GITHUB_OUTPUT
+          else
+            echo "environment=staging" >> $GITHUB_OUTPUT
+            echo "feature_flag=--export-set-feature staging" >> $GITHUB_OUTPUT
+            echo "port=5005" >> $GITHUB_OUTPUT
+            echo "deploy_name=${BASE_NAME}-staging" >> $GITHUB_OUTPUT
+          fi
 
       - name: Install deploy tools
         run: apt-get update && apt-get install -y rsync openssh-client
@@ -41,7 +70,9 @@ jobs:
         run: mkdir -p build/linux
 
       - name: Export Linux build
-        run: godot --headless --verbose --export-release "Linux" "build/linux/$NAME"
+        run: |
+          echo "Building server for ${{ steps.env.outputs.environment }} environment (port ${{ steps.env.outputs.port }})"
+          godot --headless --verbose --export-release "Linux" "build/linux/${{ steps.env.outputs.deploy_name }}" ${{ steps.env.outputs.feature_flag }}
 
       - name: Install SSH key
         run: |
@@ -52,14 +83,15 @@ jobs:
 
       - name: Upload build
         run: |
+          echo "Deploying to ~/${{ steps.env.outputs.deploy_name }}/"
           rsync -av --delete --whole-file \
             -e "ssh -i $HOME/.ssh/id_vacuumbrewstudios -o StrictHostKeyChecking=accept-new" \
             build/linux/ \
-            root@$VACUUMBREWSTUDIOS_HOST:~/$NAME/
+            root@$VACUUMBREWSTUDIOS_HOST:~/${{ steps.env.outputs.deploy_name }}/
 
       - name: Restart tmux session
         run: |
           ssh -i $HOME/.ssh/id_vacuumbrewstudios -o StrictHostKeyChecking=accept-new root@$VACUUMBREWSTUDIOS_HOST << EOF
-          tmux kill-session -t "$NAME" 2>/dev/null || true
-          tmux new -d -s "$NAME" "cd ~/$NAME && ./$NAME --headless --port=$PORT"
+          tmux kill-session -t "${{ steps.env.outputs.deploy_name }}" 2>/dev/null || true
+          tmux new -d -s "${{ steps.env.outputs.deploy_name }}" "cd ~/${{ steps.env.outputs.deploy_name }} && ./${{ steps.env.outputs.deploy_name }} --headless --port=${{ steps.env.outputs.port }}"
           EOF
