@@ -15,11 +15,19 @@ enum State {
 }
 
 var state = State.VOID
+var desire = ""
 
-func init(initial_global_position, initial_target):
+func init(initial_global_position, initial_target, initial_desire):
 	global_position = initial_global_position
 	target = initial_target
+	desire = initial_desire
 	state = State.COMMUTING
+
+func _ready():
+	if desire == "coffee":
+		$Coffee.visible = true
+	elif desire == "wine":
+		$Wine.visible = true
 
 func _physics_process(_delta: float) -> void:
 	if direction != Vector2.ZERO:
@@ -48,7 +56,7 @@ func _physics_process(_delta: float) -> void:
 	else:
 		direction = Vector2.ZERO
 
-	if global_position.distance_to(Vector2.ZERO) > 320:
+	if global_position.distance_to(Vector2.ZERO) > 480:
 		print("freeing customer")
 		queue_free()
 
@@ -57,19 +65,23 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		return
 
 	if state == State.WAITING and body.is_in_group("Barista"):
-		if body.holding == "coffee":
+		if body.holding == desire:
 			body.holding = ""
 			var cafe = get_node(cafe_path)
 			cafe.customer_left.emit(true)
 			cafe.release_slot(self.get_path())
 			target = Vector2(640, 0)
 			state = State.LEAVING
+			$Coffee.visible = false
+			$Wine.visible = false
 		elif body.holding == "newspaper":
 			var cafe = get_node(cafe_path)
 			cafe.customer_left.emit(false)
 			cafe.release_slot(self.get_path())
 			target = Vector2(640, 0)
 			state = State.LEAVING
+			$Coffee.visible = false
+			$Wine.visible = false
 
 	if state == State.COMMUTING and body.is_in_group("Barista"):
 		var arena = NodeUtils.get_first_ancestor_in_group_for_node(self, "Arena")
@@ -98,3 +110,5 @@ func _on_wait_timer_timeout() -> void:
 		cafe.release_slot(self.get_path())
 	target = Vector2(640, 0)
 	state = State.LEAVING
+	$Coffee.visible = false
+	$Wine.visible = false

@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://dirct4jf8stvp" path="res://scenes/bean_bag.tscn" id="3_de0wi"]
 [ext_resource type="PackedScene" uid="uid://cp1imi0s70jb1" path="res://scenes/vacuum_brew.tscn" id="4_qifwr"]
 [ext_resource type="PackedScene" uid="uid://coeutl0j6w2hm" path="res://scenes/garbage_can.tscn" id="5_c2152"]
+[ext_resource type="PackedScene" uid="uid://cuiludgrbvfb0" path="res://scenes/comporton.tscn" id="6_7i37m"]
+[ext_resource type="PackedScene" uid="uid://tefqap5hltiu" path="res://scenes/vat.tscn" id="7_cc1jb"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_c2152"]
 properties/0/path = NodePath("VacuumBrew1:state")
@@ -29,19 +31,31 @@ position = Vector2(-32, 0)
 position = Vector2(32, 0)
 
 [node name="BeanBag" parent="." unique_id=1164690060 instance=ExtResource("3_de0wi")]
-position = Vector2(64, -64)
+position = Vector2(48, -144)
 
 [node name="VacuumBrew1" parent="." unique_id=1775694487 instance=ExtResource("4_qifwr")]
-position = Vector2(-32, -32)
+position = Vector2(-48, -32)
 
 [node name="VacuumBrew2" parent="." unique_id=590269653 instance=ExtResource("4_qifwr")]
-position = Vector2(0, -32)
+position = Vector2(-48, -64)
 
 [node name="VacuumBrew3" parent="." unique_id=1186177446 instance=ExtResource("4_qifwr")]
-position = Vector2(32, -32)
+position = Vector2(-48, -96)
 
 [node name="GarbageCan" parent="." unique_id=1325507682 instance=ExtResource("5_c2152")]
-position = Vector2(0, -64)
+position = Vector2(0, -144)
+
+[node name="Comporton" parent="." unique_id=1055187497 instance=ExtResource("6_7i37m")]
+position = Vector2(-48, -144)
+
+[node name="Vat1" parent="." unique_id=633288720 instance=ExtResource("7_cc1jb")]
+position = Vector2(48, -32)
+
+[node name="Vat2" parent="." unique_id=842633155 instance=ExtResource("7_cc1jb")]
+position = Vector2(48, -64)
+
+[node name="Vat3" parent="." unique_id=972558859 instance=ExtResource("7_cc1jb")]
+position = Vector2(48, -96)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1512198300]
 replication_config = SubResource("SceneReplicationConfig_c2152")

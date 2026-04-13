@@ -1,0 +1,159 @@
+[gd_scene format=3 uid="uid://tefqap5hltiu"]
+
+[ext_resource type="Script" uid="uid://bf4vruklbo4rp" path="res://scenes/vat.gd" id="1_fscnh"]
+[ext_resource type="Texture2D" uid="uid://oni7ypbfavwf" path="res://assets/wine/vat-brewed-1.png" id="1_p0s77"]
+[ext_resource type="Texture2D" uid="uid://dw3denb4oxwxc" path="res://assets/wine/vat-brewed-2.png" id="2_fscnh"]
+[ext_resource type="Texture2D" uid="uid://b77j0wjfq24fo" path="res://assets/wine/vat-brewed-3.png" id="3_qh4vr"]
+[ext_resource type="Texture2D" uid="uid://fq00es3lc37l" path="res://assets/wine/vat-brewed-4.png" id="4_xtx7g"]
+[ext_resource type="Texture2D" uid="uid://3ruoluojtnck" path="res://assets/wine/vat-brewed-5.png" id="5_w8o36"]
+[ext_resource type="Texture2D" uid="uid://dnbe5m4dnmvgs" path="res://assets/wine/vat-brewed-6.png" id="6_de51y"]
+[ext_resource type="Texture2D" uid="uid://blkkrrx1dwit5" path="res://assets/wine/vat-brewed-7.png" id="7_r1bhd"]
+[ext_resource type="Texture2D" uid="uid://cqiph52xhprn1" path="res://assets/wine/vat-brewed-8.png" id="8_fawy1"]
+[ext_resource type="Texture2D" uid="uid://dtt3wxtogps4t" path="res://assets/wine/vat-brewing-1.png" id="9_qmuip"]
+[ext_resource type="Texture2D" uid="uid://xn2e0yluqbpf" path="res://assets/wine/vat-brewing-2.png" id="10_et1gi"]
+[ext_resource type="Texture2D" uid="uid://b0giablo1qwqa" path="res://assets/wine/vat-brewing-3.png" id="11_v3lfy"]
+[ext_resource type="Texture2D" uid="uid://balteqt8cr387" path="res://assets/wine/vat-brewing-4.png" id="12_iynmg"]
+[ext_resource type="Texture2D" uid="uid://v7oxtphvb5e1" path="res://assets/wine/vat-brewing-5.png" id="13_rr1t3"]
+[ext_resource type="Texture2D" uid="uid://vlml1435w3g8" path="res://assets/wine/vat-brewing-6.png" id="14_vdcd5"]
+[ext_resource type="Texture2D" uid="uid://bx1k7ar6gv8nk" path="res://assets/wine/vat-brewing-7.png" id="15_wx5d8"]
+[ext_resource type="Texture2D" uid="uid://dv2cv55g4dpar" path="res://assets/wine/vat-brewing-8.png" id="16_8gypb"]
+[ext_resource type="Texture2D" uid="uid://7oiichhl7xbs" path="res://assets/wine/vat-brewing-9.png" id="17_n8mow"]
+[ext_resource type="Texture2D" uid="uid://dlbho3jktm1yn" path="res://assets/wine/vat-empty-1.png" id="18_6ymjx"]
+[ext_resource type="Texture2D" uid="uid://bp22fhk7b6a17" path="res://assets/wine/vat-spoiled-1.png" id="19_5rn1u"]
+[ext_resource type="Texture2D" uid="uid://cvbyhmvxa5aww" path="res://assets/wine/vat-spoiled-2.png" id="20_5ptrt"]
+[ext_resource type="Texture2D" uid="uid://wmki5dtjt7if" path="res://assets/wine/vat-spoiled-3.png" id="21_g6d85"]
+[ext_resource type="Texture2D" uid="uid://5ph0qms0rcrg" path="res://assets/wine/vat-spoiled-4.png" id="22_1wrfd"]
+[ext_resource type="Texture2D" uid="uid://dtm74qt2cm21t" path="res://assets/wine/vat-spoiled-5.png" id="23_d77jr"]
+[ext_resource type="Texture2D" uid="uid://bt1notpmqto7f" path="res://assets/wine/vat-spoiled-6.png" id="24_d4x5v"]
+[ext_resource type="Texture2D" uid="uid://bu1gtco764oel" path="res://assets/wine/vat-spoiled-7.png" id="25_580tq"]
+[ext_resource type="Texture2D" uid="uid://b6bmcbj40pn4l" path="res://assets/wine/vat-spoiled-8.png" id="26_oiidc"]
+[ext_resource type="Texture2D" uid="uid://cwc4konxrumg3" path="res://assets/wine/vat-spoiled-9.png" id="27_urdg0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e06qh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_p0s77")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_fscnh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qh4vr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xtx7g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_w8o36")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_de51y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_r1bhd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_fawy1")
+}],
+"loop": true,
+"name": &"brewed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_qmuip")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_et1gi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_v3lfy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_iynmg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_rr1t3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_vdcd5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_wx5d8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_8gypb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_n8mow")
+}],
+"loop": true,
+"name": &"brewing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_6ymjx")
+}],
+"loop": true,
+"name": &"empty",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_5rn1u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_5ptrt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_g6d85")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_1wrfd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_d77jr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_d4x5v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_580tq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_oiidc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_urdg0")
+}],
+"loop": true,
+"name": &"spoiled",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p0s77"]
+radius = 8.0
+
+[node name="Vat" type="Area2D" unique_id=633288720]
+script = ExtResource("1_fscnh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=419300472]
+sprite_frames = SubResource("SpriteFrames_e06qh")
+animation = &"spoiled"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1346103414]
+shape = SubResource("CircleShape2D_p0s77")
+
+[node name="BrewTimer" type="Timer" parent="." unique_id=185410175]
+wait_time = 5.0
+one_shot = true
+
+[node name="SpoilTimer" type="Timer" parent="." unique_id=1518131191]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="BrewTimer" to="." method="_on_brew_timer_timeout"]
+[connection signal="timeout" from="SpoilTimer" to="." method="_on_spoil_timer_timeout"]

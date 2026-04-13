@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cp1imi0s70jb1"]
 
 [ext_resource type="Script" uid="uid://bgwj7gvipuuq6" path="res://scenes/vacuum_brew.gd" id="1_26oqg"]
-[ext_resource type="Texture2D" uid="uid://cchsrx1qgppm7" path="res://assets/vacuum-brew-empty.png" id="1_dgbs2"]
 [ext_resource type="Texture2D" uid="uid://crqxjnd8gjw7n" path="res://assets/vacuum-brew-brewed.png" id="2_xg8xk"]
 [ext_resource type="Texture2D" uid="uid://bgnd3lndn1y0v" path="res://assets/vacuum-brew-brewing.png" id="3_wujpx"]
 [ext_resource type="Texture2D" uid="uid://dibcnm1cgnrv5" path="res://assets/vacuum-brew-burnt.png" id="4_qmt30"]
+[ext_resource type="Texture2D" uid="uid://cchsrx1qgppm7" path="res://assets/vacuum-brew-empty.png" id="5_u4gnm"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_u4gnm"]
 animations = [{
@@ -34,7 +34,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_dgbs2")
+"texture": ExtResource("5_u4gnm")
 }],
 "loop": true,
 "name": &"empty",

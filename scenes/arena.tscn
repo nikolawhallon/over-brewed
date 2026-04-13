@@ -11,10 +11,10 @@ script = ExtResource("1_e05a3")
 [node name="Replicated" type="Node" parent="." unique_id=217975276]
 
 [node name="LeftCafe" parent="Replicated" unique_id=1340216554 instance=ExtResource("3_xdvfk")]
-position = Vector2(-64, -32)
+position = Vector2(-64, 48)
 
 [node name="RightCafe" parent="Replicated" unique_id=435030877 instance=ExtResource("3_xdvfk")]
-position = Vector2(64, -32)
+position = Vector2(64, 48)
 
 [node name="Newspaper" parent="Replicated" unique_id=799578802 instance=ExtResource("3_7ft05")]
 position = Vector2(0, 64)

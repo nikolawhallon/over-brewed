@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dirct4jf8stvp"]
 
 [ext_resource type="Script" uid="uid://b8kfs881bcmfd" path="res://scenes/bean_bag.gd" id="1_3ewqx"]
-[ext_resource type="Texture2D" uid="uid://co3xd5ifry28q" path="res://assets/beans.png" id="1_crm42"]
+[ext_resource type="Texture2D" uid="uid://6ibe5oaup2hw" path="res://assets/coffee/bean-bag-closed.png" id="2_3ewqx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3ewqx"]
 radius = 8.0
@@ -10,7 +10,7 @@ radius = 8.0
 script = ExtResource("1_3ewqx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=581418551]
-texture = ExtResource("1_crm42")
+texture = ExtResource("2_3ewqx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1548480027]
 shape = SubResource("CircleShape2D_3ewqx")

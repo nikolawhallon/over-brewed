@@ -43,7 +43,7 @@ func _input(event):
 			request_spawn_barista.rpc_id(1)
 
 @rpc("any_peer", "reliable")
-func announce_start_game(random_seed, _peers):
+func announce_start_game(_random_seed, _peers):
 	state = State.STARTING
 
 @rpc("any_peer", "call_local", "reliable")
@@ -72,7 +72,10 @@ func _on_customer_timer_timeout() -> void:
 		return
 
 	var customer = load("res://scenes/customer.tscn").instantiate()
-	customer.init(Vector2(-320, 0), Vector2(640, 0))
+	var desire = "coffee"
+	if randf() > 0.5:
+		desire = "wine"
+	customer.init(Vector2(-320, 96), Vector2(640, 96), desire)
 	$Replicated.add_child(customer, true)
 
 func _on_left_cafe_customer_left(served) -> void:

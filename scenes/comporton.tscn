@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cuiludgrbvfb0"]
+
+[ext_resource type="Script" uid="uid://ijl8l2odc4ug" path="res://scenes/comporton.gd" id="1_5xa0m"]
+[ext_resource type="Texture2D" uid="uid://b3lk4oeri7hf1" path="res://assets/wine/comporton.png" id="1_ig4j1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5xa0m"]
+radius = 8.0
+
+[node name="Comporton" type="Area2D" unique_id=1055187497]
+script = ExtResource("1_5xa0m")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=778859109]
+texture = ExtResource("1_ig4j1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=164027149]
+shape = SubResource("CircleShape2D_5xa0m")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dgwemui1rsx5o" path="res://assets/barista/barista-idle-1.png" id="1_0dyjn"]
 [ext_resource type="Script" uid="uid://y0i2wrm80j8b" path="res://scenes/barista.gd" id="1_xwpi6"]
 [ext_resource type="Texture2D" uid="uid://b5pplpf63ns2u" path="res://assets/barista/barista-idle-2.png" id="2_5fsgc"]
+[ext_resource type="Texture2D" uid="uid://dfydvebyhpo1u" path="res://assets/coffee/bean-icon.png" id="2_17x05"]
 [ext_resource type="Texture2D" uid="uid://co3xd5ifry28q" path="res://assets/beans.png" id="2_b8crr"]
 [ext_resource type="Texture2D" uid="uid://cwjfgq4vft4mv" path="res://assets/coffee.png" id="3_q4d84"]
 [ext_resource type="Texture2D" uid="uid://bnwxe38ecmilq" path="res://assets/barista/barista-move-1.png" id="3_swm0g"]
@@ -61,7 +62,7 @@ script = ExtResource("1_xwpi6")
 [node name="Beans" type="Sprite2D" parent="." unique_id=755426137]
 visible = false
 position = Vector2(4, -4)
-texture = ExtResource("2_b8crr")
+texture = ExtResource("2_17x05")
 
 [node name="Coffee" type="Sprite2D" parent="." unique_id=371870849]
 visible = false
@@ -72,6 +73,16 @@ texture = ExtResource("3_q4d84")
 visible = false
 position = Vector2(4, -4)
 texture = ExtResource("4_17x05")
+
+[node name="Grapes" type="Sprite2D" parent="." unique_id=1225598928]
+visible = false
+position = Vector2(4, -4)
+texture = ExtResource("2_b8crr")
+
+[node name="Wine" type="Sprite2D" parent="." unique_id=1167275916]
+visible = false
+position = Vector2(4, -4)
+texture = ExtResource("2_b8crr")
 
 [node name="Newspaper" type="Sprite2D" parent="." unique_id=170513733]
 visible = false

@@ -25,26 +25,50 @@ func _physics_process(_delta: float) -> void:
 		$Beans.visible = true
 		$Coffee.visible = false
 		$Waste.visible = false
+		$Grapes.visible = false
+		$Wine.visible = false
 		$Newspaper.visible = false
 	elif holding == "coffee":
 		$Beans.visible = false
 		$Coffee.visible = true
 		$Waste.visible = false
+		$Grapes.visible = false
+		$Wine.visible = false
 		$Newspaper.visible = false
 	elif holding == "waste":
 		$Beans.visible = false
 		$Coffee.visible = false
 		$Waste.visible = true
+		$Grapes.visible = false
+		$Wine.visible = false
 		$Newspaper.visible = false
 	elif holding == "newspaper":
 		$Beans.visible = false
 		$Coffee.visible = false
 		$Waste.visible = false
+		$Grapes.visible = false
+		$Wine.visible = false
 		$Newspaper.visible = true
+	elif holding == "grapes":
+		$Beans.visible = false
+		$Coffee.visible = false
+		$Waste.visible = false
+		$Grapes.visible = true
+		$Wine.visible = false
+		$Newspaper.visible = false
+	elif holding == "wine":
+		$Beans.visible = false
+		$Coffee.visible = false
+		$Waste.visible = false
+		$Grapes.visible = false
+		$Wine.visible = true
+		$Newspaper.visible = false
 	else:
 		$Beans.visible = false
 		$Coffee.visible = false
 		$Waste.visible = false
+		$Grapes.visible = false
+		$Wine.visible = false
 		$Newspaper.visible = false
 
 	if direction != Vector2.ZERO:
