@@ -72,7 +72,7 @@ jobs:
       - name: Export Linux build
         run: |
           echo "Building server for ${{ steps.env.outputs.environment }} environment (port ${{ steps.env.outputs.port }})"
-          godot --headless --verbose --export-release "Linux" "build/linux/${{ steps.env.outputs.deploy_name }}" ${{ steps.env.outputs.feature_flag }}
+          godot --headless --verbose ${{ steps.env.outputs.feature_flag }} --export-release "Linux" "build/linux/${{ steps.env.outputs.deploy_name }}"
 
       - name: Install SSH key
         run: |

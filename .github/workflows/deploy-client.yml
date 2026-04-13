@@ -63,7 +63,7 @@ jobs:
       - name: Export Web build
         run: |
           echo "Building for ${{ steps.env.outputs.environment }} environment"
-          godot --headless --verbose --export-release "Web" "build/web/index.html" ${{ steps.env.outputs.feature_flag }}
+          godot --headless --verbose ${{ steps.env.outputs.feature_flag }} --export-release "Web" "build/web/index.html"
 
       - name: Install butler
         run: |
