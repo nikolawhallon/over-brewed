@@ -38,17 +38,17 @@ jobs:
 
           if [ "${{ github.event_name }}" == "release" ]; then
             echo "environment=production" >> $GITHUB_OUTPUT
-            echo "feature_flag=" >> $GITHUB_OUTPUT
+            echo "export_type=release" >> $GITHUB_OUTPUT
             echo "port=5004" >> $GITHUB_OUTPUT
             echo "deploy_name=${BASE_NAME}" >> $GITHUB_OUTPUT
           elif [ "${{ github.event_name }}" == "workflow_dispatch" ] && [ "${{ inputs.environment }}" == "production" ]; then
             echo "environment=production" >> $GITHUB_OUTPUT
-            echo "feature_flag=" >> $GITHUB_OUTPUT
+            echo "export_type=release" >> $GITHUB_OUTPUT
             echo "port=5004" >> $GITHUB_OUTPUT
             echo "deploy_name=${BASE_NAME}" >> $GITHUB_OUTPUT
           else
             echo "environment=staging" >> $GITHUB_OUTPUT
-            echo "feature_flag=" >> $GITHUB_OUTPUT
+            echo "export_type=debug" >> $GITHUB_OUTPUT
             echo "port=5005" >> $GITHUB_OUTPUT
             echo "deploy_name=${BASE_NAME}-staging" >> $GITHUB_OUTPUT
           fi
@@ -72,7 +72,7 @@ jobs:
       - name: Export Linux build
         run: |
           echo "Building server for ${{ steps.env.outputs.environment }} environment (port ${{ steps.env.outputs.port }})"
-          godot --headless --verbose ${{ steps.env.outputs.feature_flag }} --export-release "Linux" "build/linux/${{ steps.env.outputs.deploy_name }}"
+          godot --headless --verbose --export-${{ steps.env.outputs.export_type }} "Linux" "build/linux/${{ steps.env.outputs.deploy_name }}"
 
       - name: Install SSH key
         run: |

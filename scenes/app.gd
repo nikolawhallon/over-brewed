@@ -235,7 +235,7 @@ func queue_game():
 	var peer = WebSocketMultiplayerPeer.new()
 
 	var server_url = "wss://overbrewed.vacuumbrewstudios.com"
-	if OS.has_feature("staging"):
+	if OS.is_debug_build():
 		server_url = "wss://overbrewed.staging.vacuumbrewstudios.com"
 
 	var result = peer.create_client(server_url)

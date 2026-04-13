@@ -35,15 +35,15 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" == "release" ]; then
             echo "environment=production" >> $GITHUB_OUTPUT
-            echo "feature_flag=" >> $GITHUB_OUTPUT
+            echo "export_type=release" >> $GITHUB_OUTPUT
             echo "itch_target=${{ secrets.ITCHIO_GAME }}" >> $GITHUB_OUTPUT
           elif [ "${{ github.event_name }}" == "workflow_dispatch" ] && [ "${{ inputs.environment }}" == "production" ]; then
             echo "environment=production" >> $GITHUB_OUTPUT
-            echo "feature_flag=" >> $GITHUB_OUTPUT
+            echo "export_type=release" >> $GITHUB_OUTPUT
             echo "itch_target=${{ secrets.ITCHIO_GAME }}" >> $GITHUB_OUTPUT
           else
             echo "environment=staging" >> $GITHUB_OUTPUT
-            echo "feature_flag=" >> $GITHUB_OUTPUT
+            echo "export_type=debug" >> $GITHUB_OUTPUT
             echo "itch_target=${{ secrets.ITCHIO_GAME }}-staging" >> $GITHUB_OUTPUT
           fi
 
@@ -63,7 +63,7 @@ jobs:
       - name: Export Web build
         run: |
           echo "Building for ${{ steps.env.outputs.environment }} environment"
-          godot --headless --verbose ${{ steps.env.outputs.feature_flag }} --export-release "Web" "build/web/index.html"
+          godot --headless --verbose --export-${{ steps.env.outputs.export_type }} "Web" "build/web/index.html"
 
       - name: Install butler
         run: |
