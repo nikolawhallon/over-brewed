@@ -55,11 +55,11 @@ animation = &"empty"
 shape = SubResource("CircleShape2D_26oqg")
 
 [node name="BrewTimer" type="Timer" parent="." unique_id=368679636]
-wait_time = 5.0
+wait_time = 10.0
 one_shot = true
 
 [node name="BurnTimer" type="Timer" parent="." unique_id=474478226]
-wait_time = 5.0
+wait_time = 20.0
 one_shot = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

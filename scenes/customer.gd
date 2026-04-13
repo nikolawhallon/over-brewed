@@ -51,7 +51,7 @@ func _physics_process(_delta: float) -> void:
 
 		if global_position.distance_to(target) < 8:
 			target = null
-			$WaitTimer.start()
+			$WaitTimer.start(randi_range(30, 60))
 			state = State.WAITING
 	else:
 		direction = Vector2.ZERO
@@ -68,7 +68,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		if body.holding == desire:
 			body.holding = ""
 			var cafe = get_node(cafe_path)
-			cafe.customer_left.emit(true)
+			cafe.customer_left.emit(desire)
 			cafe.release_slot(self.get_path())
 			target = Vector2(640, 0)
 			state = State.LEAVING

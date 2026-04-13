@@ -85,7 +85,10 @@ func _on_left_cafe_customer_left(served) -> void:
 	if not served:
 		return
 
-	left_score += 1
+	if served == "coffee":
+		left_score += 1
+	elif served == "wine":
+		left_score += 2
 	for peer in NodeUtils.get_first_ancestor_in_group_for_node(self, "App").get_peer_ids_for_match(match_id):
 		if peer == 1:
 			continue
@@ -100,7 +103,10 @@ func _on_right_cafe_customer_left(served) -> void:
 	if not served:
 		return
 
-	right_score += 1
+	if served == "coffee":
+		right_score += 1
+	elif served == "wine":
+		right_score += 2
 	for peer in NodeUtils.get_first_ancestor_in_group_for_node(self, "App").get_peer_ids_for_match(match_id):
 		if peer == 1:
 			continue
