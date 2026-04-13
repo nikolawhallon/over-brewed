@@ -86,14 +86,14 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if state == State.COMMUTING and body.is_in_group("Barista"):
 		var arena = NodeUtils.get_first_ancestor_in_group_for_node(self, "Arena")
 		if body.cafe == "left":
-			var cafe = arena.get_node("Replicated/LeftCafe")
+			var cafe = arena.get_node("LeftCafe")
 			cafe_path = cafe.get_path()
 			var new_target = cafe.get_slot(self.get_path())
 			if new_target != null:
 				target = new_target
 				state = State.ENTERING
 		elif body.cafe == "right":
-			var cafe = arena.get_node("Replicated/RightCafe")
+			var cafe = arena.get_node("RightCafe")
 			cafe_path = cafe.get_path()
 			var new_target = cafe.get_slot(self.get_path())
 			if new_target != null:

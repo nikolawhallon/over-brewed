@@ -107,3 +107,16 @@ func _on_right_cafe_customer_left(served) -> void:
 		announce_update_right_score.rpc_id(peer, right_score)
 
 	announce_update_right_score(right_score)
+
+func _on_power_up_timer_timeout() -> void:
+	if not multiplayer.is_server():
+		return
+
+	var power_ups = NodeUtils.get_nodes_in_group_for_node(self, "PowerUp")
+	
+	if len(power_ups) > 0:
+		return
+
+	var newspaper = load("res://scenes/newspaper.tscn").instantiate()
+	newspaper.init(Vector2(0, 16))
+	$Replicated.add_child(newspaper)

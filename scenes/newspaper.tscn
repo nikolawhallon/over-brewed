@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_orewu"]
 radius = 4.0
 
-[node name="Newspaper" type="Area2D" unique_id=799578802]
+[node name="Newspaper" type="Area2D" unique_id=799578802 groups=["PowerUp"]]
 script = ExtResource("1_orewu")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=366991720]
