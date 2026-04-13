@@ -43,7 +43,7 @@ jobs:
             echo "itch_target=${{ secrets.ITCHIO_GAME }}" >> $GITHUB_OUTPUT
           else
             echo "environment=staging" >> $GITHUB_OUTPUT
-            echo "feature_flag=--export-set-feature staging" >> $GITHUB_OUTPUT
+            echo "feature_flag=--features staging" >> $GITHUB_OUTPUT
             echo "itch_target=${{ secrets.ITCHIO_GAME }}-staging" >> $GITHUB_OUTPUT
           fi
 
