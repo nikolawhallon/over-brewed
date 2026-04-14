@@ -48,6 +48,9 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:direction")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("WaitTimer:wait_time")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [node name="Customer" type="CharacterBody2D" unique_id=44048297 groups=["Customer"]]
 collision_layer = 2

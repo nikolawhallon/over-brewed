@@ -2,9 +2,15 @@
 
 [ext_resource type="Script" uid="uid://bol85s0iyb82p" path="res://scenes/mailman.gd" id="1_ipfhr"]
 [ext_resource type="Texture2D" uid="uid://dgwemui1rsx5o" path="res://assets/barista/barista-idle-1.png" id="1_kbpdr"]
+[ext_resource type="PackedScene" uid="uid://crfcwsne50c0c" path="res://scenes/helpers/match_visibility.tscn" id="3_fnqd3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kbpdr"]
 size = Vector2(8, 8)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_s3xhg"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [node name="Mailman" type="CharacterBody2D" unique_id=2006644110 groups=["Mailman"]]
 script = ExtResource("1_ipfhr")
@@ -14,3 +20,8 @@ texture = ExtResource("1_kbpdr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1612251016]
 shape = SubResource("RectangleShape2D_kbpdr")
+
+[node name="MatchVisibility" parent="." unique_id=459758655 instance=ExtResource("3_fnqd3")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=399171164]
+replication_config = SubResource("SceneReplicationConfig_s3xhg")
