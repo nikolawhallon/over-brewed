@@ -41,6 +41,8 @@ func _physics_process(_delta: float) -> void:
 		$AnimatedSprite2D.flip_h = false
 
 	if state == State.WAITING:
+		if $WaitTimer.is_stopped():
+			$WaitTimer.start()
 		$TimerProgress.visible = true
 		var progress = (1.0 - $WaitTimer.time_left / $WaitTimer.wait_time) * 100
 		$TimerProgress.value = progress
@@ -58,7 +60,7 @@ func _physics_process(_delta: float) -> void:
 
 		if global_position.distance_to(target) < 8:
 			target = null
-			$WaitTimer.start(randi_range(30, 60))
+			$WaitTimer.wait_time = randi_range(30, 60)
 			state = State.WAITING
 	else:
 		direction = Vector2.ZERO

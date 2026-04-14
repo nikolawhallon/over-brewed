@@ -15,11 +15,15 @@ func _physics_process(_delta: float) -> void:
 		$AnimatedSprite2D.play("empty")
 		$TimerProgress.visible = false
 	if state == State.BREWING:
+		if $BrewTimer.is_stopped():
+			$BrewTimer.start()
 		$AnimatedSprite2D.play("brewing")
 		$TimerProgress.visible = true
 		var progress = (1.0 - $BrewTimer.time_left / $BrewTimer.wait_time) * 100
 		$TimerProgress.value = progress
 	if state == State.BREWED:
+		if $BurnTimer.is_stopped():
+			$BurnTimer.start()
 		$AnimatedSprite2D.play("brewed")
 		$TimerProgress.visible = true
 		var progress = (1.0 - $BurnTimer.time_left / $BurnTimer.wait_time) * 100
@@ -35,7 +39,6 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Barista"):
 		if state == State.EMPTY and body.holding == "beans":
 			state = State.BREWING
-			$BrewTimer.start()
 			body.holding = ""
 		if state == State.BREWED and body.holding == "":
 			state = State.EMPTY
@@ -50,7 +53,6 @@ func _on_brew_timer_timeout() -> void:
 		return
 
 	state = State.BREWED
-	$BurnTimer.start()
 
 func _on_burn_timer_timeout() -> void:
 	if not multiplayer.is_server():
