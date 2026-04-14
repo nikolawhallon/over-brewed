@@ -14,8 +14,8 @@ enum State {
 	LEAVING
 }
 
-var state = State.VOID
-var desire = ""
+@export var state = State.VOID
+@export var desire = ""
 
 func init(initial_global_position, initial_target, initial_desire):
 	global_position = initial_global_position
@@ -23,13 +23,17 @@ func init(initial_global_position, initial_target, initial_desire):
 	desire = initial_desire
 	state = State.COMMUTING
 
-func _ready():
-	if desire == "coffee":
-		$Coffee.visible = true
-	elif desire == "wine":
-		$Wine.visible = true
-
 func _physics_process(_delta: float) -> void:
+	if state != State.LEAVING and desire == "coffee":
+		$Coffee.visible = true
+		$Wine.visible = false
+	elif state != State.LEAVING and desire == "wine":
+		$Coffee.visible = false
+		$Wine.visible = true
+	else:
+		$Coffee.visible = false
+		$Wine.visible = false
+
 	if direction != Vector2.ZERO:
 		$AnimatedSprite2D.play("move")
 	else:
@@ -39,15 +43,6 @@ func _physics_process(_delta: float) -> void:
 		$AnimatedSprite2D.flip_h = true
 	elif direction.x > 0.0:
 		$AnimatedSprite2D.flip_h = false
-
-	if state == State.WAITING:
-		if $WaitTimer.is_stopped():
-			$WaitTimer.start()
-		$TimerProgress.visible = true
-		var progress = (1.0 - $WaitTimer.time_left / $WaitTimer.wait_time) * 100
-		$TimerProgress.value = progress
-	else:
-		$TimerProgress.visible = false
 
 	if not multiplayer.is_server():
 		return
@@ -60,7 +55,7 @@ func _physics_process(_delta: float) -> void:
 
 		if global_position.distance_to(target) < 8:
 			target = null
-			$WaitTimer.wait_time = randi_range(30, 60)
+			$WaitTimer.start(randi_range(30, 60))
 			state = State.WAITING
 	else:
 		direction = Vector2.ZERO
@@ -81,16 +76,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			cafe.release_slot(self.get_path())
 			target = Vector2(640, 0)
 			state = State.LEAVING
-			$Coffee.visible = false
-			$Wine.visible = false
 		elif body.holding == "newspaper":
 			var cafe = get_node(cafe_path)
 			cafe.customer_left.emit(false)
 			cafe.release_slot(self.get_path())
 			target = Vector2(640, 0)
 			state = State.LEAVING
-			$Coffee.visible = false
-			$Wine.visible = false
 
 	if state == State.COMMUTING and body.is_in_group("Barista"):
 		var arena = NodeUtils.get_first_ancestor_in_group_for_node(self, "Arena")
@@ -119,5 +110,3 @@ func _on_wait_timer_timeout() -> void:
 		cafe.release_slot(self.get_path())
 	target = Vector2(640, 0)
 	state = State.LEAVING
-	$Coffee.visible = false
-	$Wine.visible = false
