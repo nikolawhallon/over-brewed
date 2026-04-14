@@ -123,6 +123,6 @@ func _on_power_up_timer_timeout() -> void:
 	if len(power_ups) > 0:
 		return
 
-	var newspaper = load("res://scenes/newspaper.tscn").instantiate()
-	newspaper.init(Vector2(0, 16))
-	$Replicated.add_child(newspaper)
+	var mailman = load("res://scenes/mailman.tscn").instantiate()
+	mailman.init(Vector2(-320, -104), Vector2(640, -104))
+	$Replicated.add_child(mailman)

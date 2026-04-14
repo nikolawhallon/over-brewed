@@ -28,40 +28,43 @@ properties/5/path = NodePath("Vat3:state")
 properties/5/spawn = true
 properties/5/replication_mode = 1
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_cc1jb"]
+radius = 8.0
+
 [node name="Cafe" type="Node2D" unique_id=1340216554]
 script = ExtResource("1_a6vgn")
 
 [node name="Slot1" parent="." unique_id=956566724 instance=ExtResource("1_0dv7p")]
-position = Vector2(-32, 0)
+position = Vector2(-24, 0)
 
 [node name="Slot2" parent="." unique_id=188102306 instance=ExtResource("1_0dv7p")]
 
 [node name="Slot3" parent="." unique_id=1396646440 instance=ExtResource("1_0dv7p")]
-position = Vector2(32, 0)
+position = Vector2(24, 0)
 
 [node name="BeanBag" parent="." unique_id=1164690060 instance=ExtResource("3_de0wi")]
-position = Vector2(48, -144)
+position = Vector2(48, -128)
 
 [node name="VacuumBrew1" parent="." unique_id=1775694487 instance=ExtResource("4_qifwr")]
-position = Vector2(-48, -32)
+position = Vector2(-48, -48)
 
 [node name="VacuumBrew2" parent="." unique_id=590269653 instance=ExtResource("4_qifwr")]
-position = Vector2(-48, -64)
+position = Vector2(-48, -72)
 
 [node name="VacuumBrew3" parent="." unique_id=1186177446 instance=ExtResource("4_qifwr")]
 position = Vector2(-48, -96)
 
 [node name="GarbageCan" parent="." unique_id=1325507682 instance=ExtResource("5_c2152")]
-position = Vector2(0, -144)
+position = Vector2(0, -128)
 
 [node name="Comporton" parent="." unique_id=1055187497 instance=ExtResource("6_7i37m")]
-position = Vector2(-48, -144)
+position = Vector2(-48, -128)
 
 [node name="Vat1" parent="." unique_id=633288720 instance=ExtResource("7_cc1jb")]
-position = Vector2(48, -32)
+position = Vector2(48, -48)
 
 [node name="Vat2" parent="." unique_id=842633155 instance=ExtResource("7_cc1jb")]
-position = Vector2(48, -64)
+position = Vector2(48, -72)
 
 [node name="Vat3" parent="." unique_id=972558859 instance=ExtResource("7_cc1jb")]
 position = Vector2(48, -96)
@@ -69,9 +72,16 @@ position = Vector2(48, -96)
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1512198300]
 replication_config = SubResource("SceneReplicationConfig_c2152")
 
+[node name="DeliverySpot" type="Area2D" parent="." unique_id=846556086]
+position = Vector2(0, -152)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeliverySpot" unique_id=652179785]
+shape = SubResource("CircleShape2D_cc1jb")
+
 [connection signal="body_entered" from="Slot1" to="." method="_on_slot_1_body_entered"]
 [connection signal="body_exited" from="Slot1" to="." method="_on_slot_1_body_exited"]
 [connection signal="body_entered" from="Slot2" to="." method="_on_slot_2_body_entered"]
 [connection signal="body_exited" from="Slot2" to="." method="_on_slot_2_body_exited"]
 [connection signal="body_entered" from="Slot3" to="." method="_on_slot_3_body_entered"]
 [connection signal="body_exited" from="Slot3" to="." method="_on_slot_3_body_exited"]
+[connection signal="body_entered" from="DeliverySpot" to="." method="_on_delivery_spot_body_entered"]

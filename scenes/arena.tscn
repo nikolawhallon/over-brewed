@@ -58,7 +58,7 @@ label_settings = ExtResource("3_olpmc")
 autostart = true
 
 [node name="PowerUpTimer" type="Timer" parent="." unique_id=2057477472]
-wait_time = 5.0
+wait_time = 10.0
 autostart = true
 
 [connection signal="customer_left" from="LeftCafe" to="." method="_on_left_cafe_customer_left"]

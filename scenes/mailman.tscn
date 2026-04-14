@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://jcwe4g0bvn6t"]
+
+[ext_resource type="Script" uid="uid://bol85s0iyb82p" path="res://scenes/mailman.gd" id="1_ipfhr"]
+[ext_resource type="Texture2D" uid="uid://dgwemui1rsx5o" path="res://assets/barista/barista-idle-1.png" id="1_kbpdr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kbpdr"]
+size = Vector2(8, 8)
+
+[node name="Mailman" type="CharacterBody2D" unique_id=2006644110 groups=["Mailman"]]
+script = ExtResource("1_ipfhr")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1052990195]
+texture = ExtResource("1_kbpdr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1612251016]
+shape = SubResource("RectangleShape2D_kbpdr")

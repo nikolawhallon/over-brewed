@@ -25,3 +25,14 @@ func release_slot(customer_path):
 		slot_2_customer_path = NodePath()
 	elif slot_3_customer_path == customer_path:
 		slot_3_customer_path = NodePath()
+
+func _on_delivery_spot_body_entered(body: Node2D) -> void:
+	if not multiplayer.is_server():
+		return
+
+	if body.is_in_group("Mailman"):
+		var arena = NodeUtils.get_first_ancestor_in_group_for_node(self, "Arena")
+		var newspaper = load("res://scenes/newspaper.tscn").instantiate()
+		newspaper.init($DeliverySpot.global_position)
+		newspaper.z_index = -1
+		arena.get_node("Replicated").add_child(newspaper)
