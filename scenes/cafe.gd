@@ -35,4 +35,4 @@ func _on_delivery_spot_body_entered(body: Node2D) -> void:
 		var newspaper = load("res://scenes/newspaper.tscn").instantiate()
 		newspaper.init($DeliverySpot.global_position)
 		newspaper.z_index = -1
-		arena.get_node("Replicated").add_child(newspaper)
+		arena.get_node("Replicated").add_child(newspaper, true)

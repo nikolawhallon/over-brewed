@@ -28,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://bu1gtco764oel" path="res://assets/wine/vat-spoiled-7.png" id="25_580tq"]
 [ext_resource type="Texture2D" uid="uid://b6bmcbj40pn4l" path="res://assets/wine/vat-spoiled-8.png" id="26_oiidc"]
 [ext_resource type="Texture2D" uid="uid://cwc4konxrumg3" path="res://assets/wine/vat-spoiled-9.png" id="27_urdg0"]
+[ext_resource type="PackedScene" uid="uid://dt261t25jn6a7" path="res://scenes/timer_progress.tscn" id="29_qh4vr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e06qh"]
 animations = [{
@@ -153,6 +154,8 @@ one_shot = true
 [node name="SpoilTimer" type="Timer" parent="." unique_id=1518131191]
 wait_time = 10.0
 one_shot = true
+
+[node name="TimerProgress" parent="." unique_id=1472765837 instance=ExtResource("29_qh4vr")]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="BrewTimer" to="." method="_on_brew_timer_timeout"]

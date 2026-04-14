@@ -40,6 +40,13 @@ func _physics_process(_delta: float) -> void:
 	elif direction.x > 0.0:
 		$AnimatedSprite2D.flip_h = false
 
+	if state == State.WAITING:
+		$TimerProgress.visible = true
+		var progress = (1.0 - $WaitTimer.time_left / $WaitTimer.wait_time) * 100
+		$TimerProgress.value = progress
+	else:
+		$TimerProgress.visible = false
+
 	if not multiplayer.is_server():
 		return
 

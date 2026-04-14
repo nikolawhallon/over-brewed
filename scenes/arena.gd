@@ -125,4 +125,4 @@ func _on_power_up_timer_timeout() -> void:
 
 	var mailman = load("res://scenes/mailman.tscn").instantiate()
 	mailman.init(Vector2(-320, -104), Vector2(640, -104))
-	$Replicated.add_child(mailman)
+	$Replicated.add_child(mailman, true)

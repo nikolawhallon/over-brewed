@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dt261t25jn6a7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fscnh"]
+bg_color = Color(0.73333335, 0.23529412, 0.3882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qh4vr"]
+bg_color = Color(0.92941177, 0.4, 0.5921569, 1)
+
+[node name="TimerProgress" type="ProgressBar" unique_id=1472765837]
+offset_left = -8.0
+offset_top = -12.0
+offset_right = 8.0
+offset_bottom = -8.0
+scale = Vector2(1, 0.5)
+theme_override_styles/background = SubResource("StyleBoxFlat_fscnh")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qh4vr")
+show_percentage = false
