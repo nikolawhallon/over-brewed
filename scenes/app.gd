@@ -8,6 +8,7 @@ var rng = RandomNumberGenerator.new()
 var waiting_2p_peer_ids = []
 var waiting_4p_peer_ids = []
 var matches = {}
+var pending_queue_mode = ""
 
 enum State {
 	DEFAULT,
@@ -179,6 +180,11 @@ func request_join_queue(mode: String):
 func _on_connected_to_server() -> void:
 	print("Connected to server")
 
+	# Join queue if we have a pending mode
+	if pending_queue_mode != "":
+		request_join_queue.rpc_id(1, pending_queue_mode)
+		pending_queue_mode = ""
+
 func _on_connection_failed() -> void:
 	print("Connection failed")
 	if multiplayer.multiplayer_peer is ENetMultiplayerPeer:
@@ -292,8 +298,8 @@ func queue_game(mode: String):
 	multiplayer.multiplayer_peer = peer
 	print("Connected to: ", server_url)
 
-	# After connecting, join the appropriate queue
-	request_join_queue.rpc_id(1, mode)
+	# Store mode to join queue after connection is established
+	pending_queue_mode = mode
 
 	return true
 
