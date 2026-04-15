@@ -5,7 +5,8 @@ const MAX_MATCHES = 5
 
 var rng = RandomNumberGenerator.new()
 
-var waiting_peer_ids = []
+var waiting_2p_peer_ids = []
+var waiting_4p_peer_ids = []
 var matches = {}
 
 enum State {
@@ -68,9 +69,9 @@ func _ready():
 			state = State.WAITING
 
 	if OS.get_name() == "Web":
-		$LobbyUI/HotKeyMarginContainer/Label.text = "[S]   SOLO\n[Q]   QUEUE\n[ESC] CANCEL"
+		$LobbyUI/HotKeyMarginContainer/Label.text = "[1]   1P\n[2]   QUEUE 2P\n[4]   QUEUE 4P\n[ESC] CANCEL"
 	else:
-		$LobbyUI/HotKeyMarginContainer/Label.text = "[S]   SOLO\n[H]   HOST\n[C]   CONNECT\n[Q]   QUEUE\n[ESC] CANCEL"
+		$LobbyUI/HotKeyMarginContainer/Label.text = "[1]   1P\n[2]   QUEUE 2P\n[4]   QUEUE 4P\n[T]   HOST 2P\n[F]   HOST 4P\n[C]   CONNECT\n[ESC] CANCEL"
 
 func _process(_delta: float) -> void:
 	if DisplayServer.get_name() == "headless":
@@ -83,11 +84,19 @@ func _process(_delta: float) -> void:
 		if quick_text_input != null:
 			quick_text_input.queue_free()
 
-	if state == State.DEFAULT and Input.is_action_just_pressed("host"):
+	if state == State.DEFAULT and Input.is_action_just_pressed("host_2p"):
 		state = State.HOST_PRESSED
 		quick_text_input = load("res://scenes/quick_text_input.tscn").instantiate()
 		quick_text_input.set_placeholder("PORT")
-		quick_text_input.text_submitted.connect(_on_host_text_submitted)
+		quick_text_input.text_submitted.connect(_on_host_2p_text_submitted)
+		$LobbyUI.add_child(quick_text_input, true)
+		quick_text_input.grab_focus()
+
+	if state == State.DEFAULT and Input.is_action_just_pressed("host_4p"):
+		state = State.HOST_PRESSED
+		quick_text_input = load("res://scenes/quick_text_input.tscn").instantiate()
+		quick_text_input.set_placeholder("PORT")
+		quick_text_input.text_submitted.connect(_on_host_4p_text_submitted)
 		$LobbyUI.add_child(quick_text_input, true)
 		quick_text_input.grab_focus()
 
@@ -99,8 +108,17 @@ func _process(_delta: float) -> void:
 		$LobbyUI.add_child(quick_text_input, true)
 		quick_text_input.grab_focus()
 
-	if state == State.DEFAULT and Input.is_action_just_pressed("queue"):
-		if queue_game():
+	if state == State.DEFAULT and Input.is_action_just_pressed("queue_2p"):
+		if queue_game("2p"):
+			state = State.WAITING
+			$LobbyUI/InfoMarginContainer/Label.text = "WAITING FOR OPPONENT"
+		else:
+			$LobbyUI/InfoMarginContainer/Label.text = "FAILED TO QUEUE"
+			reset_multiplayer_peer()
+			state = State.DEFAULT
+
+	if state == State.DEFAULT and Input.is_action_just_pressed("queue_4p"):
+		if queue_game("4p"):
 			state = State.WAITING
 			$LobbyUI/InfoMarginContainer/Label.text = "WAITING FOR OPPONENT"
 		else:
@@ -129,26 +147,34 @@ func _process(_delta: float) -> void:
 func _on_peer_connected(peer_id: int) -> void:
 	print("Peer connected: ", peer_id)
 
-	if not multiplayer.is_server():
-		return
-
-	if waiting_peer_ids.has(peer_id):
-		return
-
-	waiting_peer_ids.append(peer_id)
-	try_match_making()
-
 func _on_peer_disconnected(peer_id: int) -> void:
 	print("Peer disconnected with peer id: ", peer_id)
 
 	if not multiplayer.is_server():
 		return
 
-	waiting_peer_ids.erase(peer_id)
+	waiting_2p_peer_ids.erase(peer_id)
+	waiting_4p_peer_ids.erase(peer_id)
 
 	var arena = get_arena_for_peer(peer_id)
 	if arena:
 		leave_match_for_peer(arena.match_id)
+
+@rpc("any_peer", "reliable")
+func request_join_queue(mode: String):
+	if not multiplayer.is_server():
+		return
+
+	var peer_id = multiplayer.get_remote_sender_id()
+
+	if mode == "2p":
+		if not waiting_2p_peer_ids.has(peer_id):
+			waiting_2p_peer_ids.append(peer_id)
+	elif mode == "4p":
+		if not waiting_4p_peer_ids.has(peer_id):
+			waiting_4p_peer_ids.append(peer_id)
+
+	try_match_making()
 
 func _on_connected_to_server() -> void:
 	print("Connected to server")
@@ -174,8 +200,17 @@ func _on_server_disconnected() -> void:
 	reset_multiplayer_peer()
 	state = State.DEFAULT
 
-func _on_host_text_submitted(text):
-	if host_game(int(text)):
+func _on_host_2p_text_submitted(text):
+	if host_game(int(text), "2p"):
+		if quick_text_input != null:
+			quick_text_input.queue_free()
+		state = State.WAITING
+		$LobbyUI/InfoMarginContainer/Label.text = "WAITING FOR OPPONENT"
+	else:
+		$LobbyUI/InfoMarginContainer/Label.text = "FAILED TO HOST"
+
+func _on_host_4p_text_submitted(text):
+	if host_game(int(text), "4p"):
 		if quick_text_input != null:
 			quick_text_input.queue_free()
 		state = State.WAITING
@@ -196,7 +231,7 @@ func _on_connect_text_submitted(text):
 	else:
 		$LobbyUI/InfoMarginContainer/Label.text = "FAILED TO CONNECT"
 
-func host_game(port):
+func host_game(port, mode: String = ""):
 	var peer = null
 	var result = null
 
@@ -209,13 +244,21 @@ func host_game(port):
 
 	if result != OK:
 		print("Failed to host: ", result)
+		reset_multiplayer_peer()
 		return false
 
 	multiplayer.multiplayer_peer = peer
 	print("Hosting on port: ", port)
 
-	if DisplayServer.get_name() != "headless" and not waiting_peer_ids.has(1):
-		waiting_peer_ids.append(1)
+	if DisplayServer.get_name() != "headless":
+		if mode == "2p":
+			waiting_2p_peer_ids.append(1)
+		elif mode == "4p":
+			waiting_4p_peer_ids.append(1)
+		else:
+			reset_multiplayer_peer()
+			return false
+		try_match_making()
 
 	return true
 
@@ -231,7 +274,10 @@ func connect_game(ip, port):
 
 	return true
 
-func queue_game():
+func queue_game(mode: String):
+	if mode != "2p" and mode != "4p":
+		return false
+
 	var peer = WebSocketMultiplayerPeer.new()
 
 	var server_url = "wss://overbrewed.vacuumbrewstudios.com"
@@ -246,15 +292,53 @@ func queue_game():
 	multiplayer.multiplayer_peer = peer
 	print("Connected to: ", server_url)
 
+	# After connecting, join the appropriate queue
+	request_join_queue.rpc_id(1, mode)
+
 	return true
 
 func try_match_making():
 	assert(multiplayer.is_server())
-	while waiting_peer_ids.size() >= MAX_TEAMS:
+
+	# Try 2P matches
+	while waiting_2p_peer_ids.size() >= 2:
 		var peers = []
-		for i in MAX_TEAMS:
+		for i in 2:
 			peers.append({
-				"peer_id": waiting_peer_ids.pop_front(),
+				"peer_id": waiting_2p_peer_ids.pop_front(),
+				"ready": false,
+			})
+
+		var match_id = rng.randi()
+		# ensure no match_id collisions
+		while matches.has(match_id):
+			match_id = rng.randi()
+		var random_seed = rng.randi()
+
+		matches[match_id] = {
+			"state": "pending",
+			"peers": peers,
+			"seed": random_seed,
+		}
+
+		var peer_ids = []
+		for peer in peers:
+			if not peer_ids.has(peer["peer_id"]):
+				peer_ids.append(peer["peer_id"])
+
+		for id in peer_ids:
+			if id == 1:
+				continue
+			announce_boot_arena.rpc_id(id, match_id)
+
+		announce_boot_arena(match_id)
+
+	# Try 4P matches
+	while waiting_4p_peer_ids.size() >= 4:
+		var peers = []
+		for i in 4:
+			peers.append({
+				"peer_id": waiting_4p_peer_ids.pop_front(),
 				"ready": false,
 			})
 
