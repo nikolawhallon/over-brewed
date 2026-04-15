@@ -72,6 +72,8 @@ position = Vector2(48, -48)
 
 [node name="DeliverySpot" type="Area2D" parent="." unique_id=846556086]
 position = Vector2(0, -104)
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeliverySpot" unique_id=652179785]
 shape = SubResource("CircleShape2D_cc1jb")

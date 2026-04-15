@@ -5,6 +5,7 @@ const SPEED = 50.0
 @export var direction = Vector2.ZERO
 var target = null
 var cafe_path = NodePath()
+var spawn_area_path = NodePath()
 
 enum State {
 	VOID,
@@ -17,11 +18,22 @@ enum State {
 @export var state = State.VOID
 @export var desire = ""
 
-func init(initial_global_position, initial_target, initial_desire):
+func init(initial_global_position, initial_spawn_area_path, initial_target, initial_desire):
 	global_position = initial_global_position
+	spawn_area_path = initial_spawn_area_path
 	target = initial_target
 	desire = initial_desire
 	state = State.COMMUTING
+
+func get_opposite_spawn_area_random_position() -> Vector2:
+	var arena = NodeUtils.get_first_ancestor_in_group_for_node(self, "Arena")
+	var left_spawn_area = arena.get_node("LeftCustomerSpawnArea")
+	var right_spawn_area = arena.get_node("RightCustomerSpawnArea")
+
+	if spawn_area_path == left_spawn_area.get_path():
+		return right_spawn_area.get_random_position()
+	else:
+		return left_spawn_area.get_random_position()
 
 func _physics_process(_delta: float) -> void:
 	if state != State.LEAVING and desire == "coffee":
@@ -69,10 +81,6 @@ func _physics_process(_delta: float) -> void:
 	else:
 		direction = Vector2.ZERO
 
-	if global_position.distance_to(Vector2.ZERO) > 480:
-		print("freeing customer")
-		call_deferred("queue_free")
-
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if not multiplayer.is_server():
 		return
@@ -83,13 +91,13 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			var cafe = get_node(cafe_path)
 			cafe.customer_left.emit(desire)
 			cafe.release_slot(self.get_path())
-			target = Vector2(640, 0)
+			target = get_opposite_spawn_area_random_position()
 			state = State.LEAVING
 		elif body.holding == "newspaper":
 			var cafe = get_node(cafe_path)
 			cafe.customer_left.emit(false)
 			cafe.release_slot(self.get_path())
-			target = Vector2(640, 0)
+			target = get_opposite_spawn_area_random_position()
 			state = State.LEAVING
 
 	if state == State.COMMUTING and body.is_in_group("Barista"):
@@ -117,5 +125,5 @@ func _on_wait_timer_timeout() -> void:
 		var cafe = get_node(cafe_path)
 		cafe.customer_left.emit(false)
 		cafe.release_slot(self.get_path())
-	target = Vector2(640, 0)
+	target = get_opposite_spawn_area_random_position()
 	state = State.LEAVING

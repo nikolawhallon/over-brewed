@@ -59,9 +59,16 @@ func _on_customer_timer_timeout() -> void:
 
 	var customer = load("res://scenes/customer.tscn").instantiate()
 	var desire = "coffee"
+	var spawn_area = $LeftCustomerSpawnArea
+	var target_area = $RightCustomerSpawnArea
 	if randf() > 0.5:
 		desire = "wine"
-	customer.init(Vector2(-320, 96), Vector2(640, 96), desire)
+	if randf() > 0.5:
+		spawn_area = $RightCustomerSpawnArea
+		target_area = $LeftCustomerSpawnArea
+	var initial_global_position = spawn_area.get_random_position()
+	var target = target_area.get_random_position()
+	customer.init(initial_global_position, spawn_area.get_path(), target, desire)
 	$Replicated.add_child(customer, true)
 
 func _on_left_cafe_customer_left(served) -> void:
@@ -109,6 +116,14 @@ func _on_power_up_timer_timeout() -> void:
 	if len(power_ups) > 0:
 		return
 
+	var spawn_area = $LeftMailmanSpawnArea
+	var target_area = $RightMailmanSpawnArea
+	if randf() > 0.5:
+		spawn_area = $RightMailmanSpawnArea
+		target_area = $LeftMailmanSpawnArea
+	var initial_global_position = spawn_area.get_random_position()
+	var target = target_area.get_random_position()
+
 	var mailman = load("res://scenes/mailman.tscn").instantiate()
-	mailman.init(Vector2(-320, -104), Vector2(640, -104))
+	mailman.init(initial_global_position, spawn_area.get_path(), target)
 	$Replicated.add_child(mailman, true)

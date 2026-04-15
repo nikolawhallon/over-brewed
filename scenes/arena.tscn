@@ -3,6 +3,13 @@
 [ext_resource type="Script" uid="uid://dn0a8nh72gupb" path="res://scenes/arena.gd" id="1_e05a3"]
 [ext_resource type="LabelSettings" uid="uid://bw7f23l3xceoc" path="res://resources/label_8.tres" id="3_olpmc"]
 [ext_resource type="PackedScene" uid="uid://d30p8sfyml00g" path="res://scenes/cafe.tscn" id="3_xdvfk"]
+[ext_resource type="Script" uid="uid://cybe0m7l7ovpu" path="res://scenes/spawn_area.gd" id="4_xdvfk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_olpmc"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xdvfk"]
+size = Vector2(64, 64)
 
 [node name="Arena" type="Node2D" unique_id=1945760612 groups=["Arena"]]
 script = ExtResource("1_e05a3")
@@ -61,7 +68,47 @@ autostart = true
 wait_time = 10.0
 autostart = true
 
+[node name="LeftMailmanSpawnArea" type="Area2D" parent="." unique_id=821364098]
+position = Vector2(-320, -104)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_xdvfk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftMailmanSpawnArea" unique_id=1065195825]
+shape = SubResource("RectangleShape2D_olpmc")
+
+[node name="RightMailmanSpawnArea" type="Area2D" parent="." unique_id=671862552]
+position = Vector2(320, -104)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_xdvfk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightMailmanSpawnArea" unique_id=2050820382]
+shape = SubResource("RectangleShape2D_olpmc")
+
+[node name="LeftCustomerSpawnArea" type="Area2D" parent="." unique_id=1125534182]
+position = Vector2(-320, 88)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_xdvfk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftCustomerSpawnArea" unique_id=303306410]
+shape = SubResource("RectangleShape2D_olpmc")
+
+[node name="RightCustomerSpawnArea" type="Area2D" parent="." unique_id=2030581180]
+position = Vector2(320, 88)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_xdvfk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightCustomerSpawnArea" unique_id=1266982680]
+shape = SubResource("RectangleShape2D_xdvfk")
+
 [connection signal="customer_left" from="LeftCafe" to="." method="_on_left_cafe_customer_left"]
 [connection signal="customer_left" from="RightCafe" to="." method="_on_right_cafe_customer_left"]
 [connection signal="timeout" from="CustomerTimer" to="." method="_on_customer_timer_timeout"]
 [connection signal="timeout" from="PowerUpTimer" to="." method="_on_power_up_timer_timeout"]
+[connection signal="body_entered" from="LeftMailmanSpawnArea" to="LeftMailmanSpawnArea" method="_on_body_entered"]
+[connection signal="body_entered" from="RightMailmanSpawnArea" to="RightMailmanSpawnArea" method="_on_body_entered"]
+[connection signal="body_entered" from="LeftCustomerSpawnArea" to="LeftCustomerSpawnArea" method="_on_body_entered"]
+[connection signal="body_entered" from="RightCustomerSpawnArea" to="RightCustomerSpawnArea" method="_on_body_entered"]
