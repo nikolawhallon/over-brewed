@@ -23,13 +23,14 @@ func _process(_delta: float) -> void:
 			for peer in NodeUtils.get_first_ancestor_in_group_for_node(self, "App").get_peer_ids_for_match(match_id):
 				if DisplayServer.get_name() == "headless" and peer == 1:
 					continue
-				if len(NodeUtils.get_nodes_in_group_for_node(self, "Barista")) % 2 == 0:
+				var num_baristas = len(NodeUtils.get_nodes_in_group_for_node(self, "Barista"))
+				if num_baristas % 2 == 0:
 					var barista = load("res://scenes/barista.tscn").instantiate()
-					barista.init(peer, "left", $LeftCafe.position)
+					barista.init(peer, "left", $LeftCafe.position + Vector2(0, - num_baristas / 2 * 16))
 					$Replicated.add_child(barista, true)
 				else:
 					var barista = load("res://scenes/barista.tscn").instantiate()
-					barista.init(peer, "right", $RightCafe.position)
+					barista.init(peer, "right", $RightCafe.position + Vector2(0, - num_baristas / 2 * 16))
 					$Replicated.add_child(barista, true)
 
 	if Input.is_action_just_pressed("leave"):
