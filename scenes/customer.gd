@@ -71,7 +71,7 @@ func _physics_process(_delta: float) -> void:
 
 	if global_position.distance_to(Vector2.ZERO) > 480:
 		print("freeing customer")
-		queue_free()
+		call_deferred("queue_free")
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if not multiplayer.is_server():
