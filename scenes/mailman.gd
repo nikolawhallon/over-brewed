@@ -23,4 +23,4 @@ func _physics_process(_delta: float) -> void:
 
 	if global_position.distance_to(Vector2.ZERO) > 480:
 		print("freeing mailman")
-		queue_free()
+		call_deferred("queue_free")

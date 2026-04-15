@@ -11,4 +11,4 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Barista"):
 		if body.holding == "":
 			body.holding = "newspaper"
-			queue_free()
+			call_deferred("queue_free")

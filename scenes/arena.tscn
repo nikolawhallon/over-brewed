@@ -16,7 +16,7 @@ position = Vector2(64, 48)
 [node name="Replicated" type="Node" parent="." unique_id=217975276]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1350542115]
-_spawnable_scenes = PackedStringArray("uid://cw0q0nb1c7xba", "uid://brjxky5ptfplk", "uid://d30p8sfyml00g", "uid://0o18bpyubgas")
+_spawnable_scenes = PackedStringArray("uid://cw0q0nb1c7xba", "uid://brjxky5ptfplk", "uid://d30p8sfyml00g", "uid://0o18bpyubgas", "uid://jcwe4g0bvn6t")
 spawn_path = NodePath("../Replicated")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1835027083]

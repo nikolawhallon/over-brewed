@@ -6,6 +6,11 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_orewu"]
 radius = 4.0
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_orewu"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Newspaper" type="Area2D" unique_id=799578802 groups=["PowerUp"]]
 script = ExtResource("1_orewu")
 
@@ -14,5 +19,8 @@ texture = ExtResource("2_orewu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=225658741]
 shape = SubResource("CircleShape2D_orewu")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1524933014]
+replication_config = SubResource("SceneReplicationConfig_orewu")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
