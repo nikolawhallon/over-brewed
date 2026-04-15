@@ -8,6 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://cuiludgrbvfb0" path="res://scenes/comporton.tscn" id="6_7i37m"]
 [ext_resource type="PackedScene" uid="uid://tefqap5hltiu" path="res://scenes/vat.tscn" id="7_cc1jb"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_cc1jb"]
+radius = 8.0
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_c2152"]
 properties/0/path = NodePath("VacuumBrew1:state")
 properties/0/spawn = true
@@ -28,55 +31,53 @@ properties/5/path = NodePath("Vat3:state")
 properties/5/spawn = true
 properties/5/replication_mode = 1
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_cc1jb"]
-radius = 8.0
-
 [node name="Cafe" type="Node2D" unique_id=1340216554]
 script = ExtResource("1_a6vgn")
 
 [node name="Slot1" parent="." unique_id=956566724 instance=ExtResource("1_0dv7p")]
-position = Vector2(-24, 0)
+position = Vector2(-24, 48)
 
 [node name="Slot2" parent="." unique_id=188102306 instance=ExtResource("1_0dv7p")]
+position = Vector2(0, 48)
 
 [node name="Slot3" parent="." unique_id=1396646440 instance=ExtResource("1_0dv7p")]
-position = Vector2(24, 0)
+position = Vector2(24, 48)
 
 [node name="BeanBag" parent="." unique_id=1164690060 instance=ExtResource("3_de0wi")]
-position = Vector2(48, -128)
+position = Vector2(48, -80)
 
 [node name="VacuumBrew1" parent="." unique_id=1775694487 instance=ExtResource("4_qifwr")]
-position = Vector2(-48, -48)
+position = Vector2(-48, 0)
 
 [node name="VacuumBrew2" parent="." unique_id=590269653 instance=ExtResource("4_qifwr")]
-position = Vector2(-48, -72)
+position = Vector2(-48, -24)
 
 [node name="VacuumBrew3" parent="." unique_id=1186177446 instance=ExtResource("4_qifwr")]
-position = Vector2(-48, -96)
+position = Vector2(-48, -48)
 
 [node name="GarbageCan" parent="." unique_id=1325507682 instance=ExtResource("5_c2152")]
-position = Vector2(0, -128)
+position = Vector2(0, -80)
 
 [node name="Comporton" parent="." unique_id=1055187497 instance=ExtResource("6_7i37m")]
-position = Vector2(-48, -128)
+position = Vector2(-48, -80)
 
 [node name="Vat1" parent="." unique_id=633288720 instance=ExtResource("7_cc1jb")]
-position = Vector2(48, -48)
+position = Vector2(48, 0)
 
 [node name="Vat2" parent="." unique_id=842633155 instance=ExtResource("7_cc1jb")]
-position = Vector2(48, -72)
+position = Vector2(48, -24)
 
 [node name="Vat3" parent="." unique_id=972558859 instance=ExtResource("7_cc1jb")]
-position = Vector2(48, -96)
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1512198300]
-replication_config = SubResource("SceneReplicationConfig_c2152")
+position = Vector2(48, -48)
 
 [node name="DeliverySpot" type="Area2D" parent="." unique_id=846556086]
-position = Vector2(0, -152)
+position = Vector2(0, -104)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeliverySpot" unique_id=652179785]
 shape = SubResource("CircleShape2D_cc1jb")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1512198300]
+replication_config = SubResource("SceneReplicationConfig_c2152")
 
 [connection signal="body_entered" from="Slot1" to="." method="_on_slot_1_body_entered"]
 [connection signal="body_exited" from="Slot1" to="." method="_on_slot_1_body_exited"]
