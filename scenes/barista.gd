@@ -32,13 +32,6 @@ func _input(event):
 			mouse_target = null
 	elif event is InputEventMouseMotion and event.button_mask & MOUSE_BUTTON_MASK_LEFT:
 		mouse_target = get_global_mouse_position()
-	elif event is InputEventScreenTouch:
-		if event.pressed:
-			mouse_target = event.position
-		else:
-			mouse_target = null
-	elif event is InputEventScreenDrag:
-		mouse_target = event.position
 
 func _physics_process(_delta: float) -> void:
 	if holding == "beans":
