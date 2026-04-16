@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const SPEED = 50.0
+const SPEED = 30.0
 @export var direction = Vector2.ZERO
 var target = null
 var cafe_path = NodePath()

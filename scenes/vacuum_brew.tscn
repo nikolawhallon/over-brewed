@@ -1,17 +1,23 @@
 [gd_scene format=3 uid="uid://cp1imi0s70jb1"]
 
 [ext_resource type="Script" uid="uid://bgwj7gvipuuq6" path="res://scenes/vacuum_brew.gd" id="1_26oqg"]
-[ext_resource type="Texture2D" uid="uid://crqxjnd8gjw7n" path="res://assets/vacuum-brew-brewed.png" id="2_xg8xk"]
-[ext_resource type="Texture2D" uid="uid://bgnd3lndn1y0v" path="res://assets/vacuum-brew-brewing.png" id="3_wujpx"]
-[ext_resource type="Texture2D" uid="uid://dibcnm1cgnrv5" path="res://assets/vacuum-brew-burnt.png" id="4_qmt30"]
-[ext_resource type="Texture2D" uid="uid://cchsrx1qgppm7" path="res://assets/vacuum-brew-empty.png" id="5_u4gnm"]
+[ext_resource type="Texture2D" uid="uid://bdyxuwt6vw7l5" path="res://assets/coffee/vacuum-brew-brewed.png" id="2_k1gvj"]
+[ext_resource type="Texture2D" uid="uid://b6a4e4au3x845" path="res://assets/coffee/vacuum-brew-brewing-1.png" id="3_7naew"]
+[ext_resource type="Texture2D" uid="uid://d1j6u711du3d5" path="res://assets/coffee/vacuum-brew-brewing-2.png" id="4_2ck6g"]
+[ext_resource type="Texture2D" uid="uid://br5cv1i8ti08i" path="res://assets/coffee/vacuum-brew-brewing-3.png" id="5_3775l"]
+[ext_resource type="Texture2D" uid="uid://bjbv0ilj25jhq" path="res://assets/coffee/vacuum-brew-brewing-4.png" id="6_k1gvj"]
 [ext_resource type="PackedScene" uid="uid://dt261t25jn6a7" path="res://scenes/timer_progress.tscn" id="6_wujpx"]
+[ext_resource type="Texture2D" uid="uid://dskpwvcuoxkso" path="res://assets/coffee/vacuum-brew-burnt-1.png" id="7_658l6"]
+[ext_resource type="Texture2D" uid="uid://cv2g6y3bgxf5w" path="res://assets/coffee/vacuum-brew-burnt-2.png" id="8_rlcef"]
+[ext_resource type="Texture2D" uid="uid://d17uby0d4mjbn" path="res://assets/coffee/vacuum-brew-burnt-3.png" id="9_ty7x6"]
+[ext_resource type="Texture2D" uid="uid://e34fb8d46hl" path="res://assets/coffee/vacuum-brew-burnt-4.png" id="10_o3jjs"]
+[ext_resource type="Texture2D" uid="uid://ytiphumrvdwe" path="res://assets/coffee/vacuum-brew-empty.png" id="11_0i022"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_u4gnm"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_xg8xk")
+"texture": ExtResource("2_k1gvj")
 }],
 "loop": true,
 "name": &"brewed",
@@ -19,7 +25,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_wujpx")
+"texture": ExtResource("3_7naew")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2ck6g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3775l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_k1gvj")
 }],
 "loop": true,
 "name": &"brewing",
@@ -27,7 +42,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_qmt30")
+"texture": ExtResource("7_658l6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_rlcef")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ty7x6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_o3jjs")
 }],
 "loop": true,
 "name": &"burnt",
@@ -35,7 +59,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_u4gnm")
+"texture": ExtResource("11_0i022")
 }],
 "loop": true,
 "name": &"empty",
@@ -50,7 +74,7 @@ script = ExtResource("1_26oqg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=161651568]
 sprite_frames = SubResource("SpriteFrames_u4gnm")
-animation = &"empty"
+animation = &"burnt"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1784386258]
 shape = SubResource("CircleShape2D_26oqg")

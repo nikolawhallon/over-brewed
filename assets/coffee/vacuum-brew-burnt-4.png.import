@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwjfgq4vft4mv"
-path="res://.godot/imported/coffee.png-6d30bba7891865acf7b5bda2db4852d4.ctex"
+uid="uid://e34fb8d46hl"
+path="res://.godot/imported/vacuum-brew-burnt-4.png-4022b0fabffdeb623243493abf83ba79.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/coffee.png"
-dest_files=["res://.godot/imported/coffee.png-6d30bba7891865acf7b5bda2db4852d4.ctex"]
+source_file="res://assets/coffee/vacuum-brew-burnt-4.png"
+dest_files=["res://.godot/imported/vacuum-brew-burnt-4.png-4022b0fabffdeb623243493abf83ba79.ctex"]
 
 [params]
 
