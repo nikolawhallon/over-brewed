@@ -58,7 +58,7 @@ jobs:
              ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
 
       - name: Make build directories
-        run: mkdir -p build/web build/linux build/windows
+        run: mkdir -p build/web build/linux build/windows build/mac
 
       - name: Export Linux build
         run: |
@@ -69,6 +69,11 @@ jobs:
         run: |
           echo "Building Windows for ${{ steps.env.outputs.environment }} environment"
           godot --headless --verbose --export-${{ steps.env.outputs.export_type }} "Windows Desktop" "build/windows/over-brewed.exe"
+
+      - name: Export macOS build
+        run: |
+          echo "Building macOS for ${{ steps.env.outputs.environment }} environment"
+          godot --headless --verbose --export-${{ steps.env.outputs.export_type }} "macOS" "build/mac/over-brewed.zip"
 
       - name: Export Web build
         run: |
@@ -90,4 +95,5 @@ jobs:
           echo "Deploying to ${{ secrets.ITCHIO_USERNAME }}/${{ steps.env.outputs.itch_target }}"
           ./butler push build/linux ${{ secrets.ITCHIO_USERNAME }}/${{ steps.env.outputs.itch_target }}:linux
           ./butler push build/windows ${{ secrets.ITCHIO_USERNAME }}/${{ steps.env.outputs.itch_target }}:windows
+          ./butler push build/mac ${{ secrets.ITCHIO_USERNAME }}/${{ steps.env.outputs.itch_target }}:mac
           ./butler push build/web ${{ secrets.ITCHIO_USERNAME }}/${{ steps.env.outputs.itch_target }}:html5
