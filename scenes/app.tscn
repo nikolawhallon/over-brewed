@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://2yo4v02crej1" path="res://scenes/app.gd" id="1_0wu41"]
 [ext_resource type="LabelSettings" uid="uid://bw7f23l3xceoc" path="res://resources/label_8.tres" id="2_1670a"]
+[ext_resource type="FontFile" uid="uid://c0t3svin2bvld" path="res://assets/kongtext.ttf" id="3_dmsei"]
 
 [node name="App" type="Node" unique_id=581750593 groups=["App"]]
 script = ExtResource("1_0wu41")
@@ -9,20 +10,6 @@ script = ExtResource("1_0wu41")
 [node name="Matches" type="Node" parent="." unique_id=1057495606]
 
 [node name="LobbyUI" type="CanvasLayer" parent="." unique_id=1824792745]
-
-[node name="HotKeyMarginContainer" type="MarginContainer" parent="LobbyUI" unique_id=575971782]
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 16.0
-grow_horizontal = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="Label" type="Label" parent="LobbyUI/HotKeyMarginContainer" unique_id=1715719762]
-layout_mode = 2
-label_settings = ExtResource("2_1670a")
 
 [node name="InfoMarginContainer" type="MarginContainer" parent="LobbyUI" unique_id=1484791931]
 anchors_preset = 12
@@ -41,3 +28,61 @@ theme_override_constants/margin_bottom = 4
 layout_mode = 2
 label_settings = ExtResource("2_1670a")
 horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="LobbyUI" unique_id=665218108]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LobbyUI/MarginContainer" unique_id=630023562]
+layout_mode = 2
+
+[node name="OnePlayer" type="Button" parent="LobbyUI/MarginContainer/VBoxContainer" unique_id=1657931140]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.28235295, 0.7647059, 0.6039216, 1)
+theme_override_colors/font_focus_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_hover_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_fonts/font = ExtResource("3_dmsei")
+text = "[1] 1P"
+
+[node name="TwoPlayer" type="Button" parent="LobbyUI/MarginContainer/VBoxContainer" unique_id=275742316]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.28235295, 0.7647059, 0.6039216, 1)
+theme_override_colors/font_focus_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_hover_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_fonts/font = ExtResource("3_dmsei")
+text = "[2] 2P"
+
+[node name="FourPlayer" type="Button" parent="LobbyUI/MarginContainer/VBoxContainer" unique_id=267043701]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.28235295, 0.7647059, 0.6039216, 1)
+theme_override_colors/font_focus_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_hover_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_fonts/font = ExtResource("3_dmsei")
+text = "[4] 4P"
+
+[node name="Cancel" type="Button" parent="LobbyUI/MarginContainer/VBoxContainer" unique_id=487645916]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.28235295, 0.7647059, 0.6039216, 1)
+theme_override_colors/font_focus_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_hover_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_fonts/font = ExtResource("3_dmsei")
+text = "[ESC] CANCEL"
+
+[connection signal="pressed" from="LobbyUI/MarginContainer/VBoxContainer/OnePlayer" to="." method="_on_one_player_pressed"]
+[connection signal="pressed" from="LobbyUI/MarginContainer/VBoxContainer/TwoPlayer" to="." method="_on_two_player_pressed"]
+[connection signal="pressed" from="LobbyUI/MarginContainer/VBoxContainer/FourPlayer" to="." method="_on_four_player_pressed"]
+[connection signal="pressed" from="LobbyUI/MarginContainer/VBoxContainer/Cancel" to="." method="_on_cancel_pressed"]

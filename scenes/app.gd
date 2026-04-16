@@ -69,81 +69,42 @@ func _ready():
 		if host_game(port):
 			state = State.WAITING
 
-	if OS.get_name() == "Web":
-		$LobbyUI/HotKeyMarginContainer/Label.text = "[1]   1P\n[2]   QUEUE 2P\n[4]   QUEUE 4P\n[ESC] CANCEL"
-	else:
-		$LobbyUI/HotKeyMarginContainer/Label.text = "[1]   1P\n[2]   QUEUE 2P\n[4]   QUEUE 4P\n[T]   HOST 2P\n[F]   HOST 4P\n[C]   CONNECT\n[ESC] CANCEL"
+	$LobbyUI/MarginContainer/VBoxContainer/OnePlayer.grab_focus()
 
 func _process(_delta: float) -> void:
 	if DisplayServer.get_name() == "headless":
 		return
 
-	if Input.is_action_just_pressed("cancel"):
-		state = State.DEFAULT
-		reset_multiplayer_peer()
-		$LobbyUI/InfoMarginContainer/Label.text = ""
-		if quick_text_input != null:
-			quick_text_input.queue_free()
+	# TODO: consider, the buttons are enabled/disabled depending on the state, so this is redundant
+	# we could just rely on whether or not the buttons are enabled/disabled
+	if state != State.DEFAULT and Input.is_action_just_pressed("cancel"):
+		$LobbyUI/MarginContainer/VBoxContainer/Cancel.pressed.emit()
 
-	if state == State.DEFAULT and Input.is_action_just_pressed("host_2p"):
-		state = State.HOST_PRESSED
-		quick_text_input = load("res://scenes/quick_text_input.tscn").instantiate()
-		quick_text_input.set_placeholder("PORT")
-		quick_text_input.text_submitted.connect(_on_host_2p_text_submitted)
-		$LobbyUI.add_child(quick_text_input, true)
-		quick_text_input.grab_focus()
+	if state == State.DEFAULT and Input.is_action_just_pressed("one_player"):
+		$LobbyUI/MarginContainer/VBoxContainer/OnePlayer.pressed.emit()
 
-	if state == State.DEFAULT and Input.is_action_just_pressed("host_4p"):
-		state = State.HOST_PRESSED
-		quick_text_input = load("res://scenes/quick_text_input.tscn").instantiate()
-		quick_text_input.set_placeholder("PORT")
-		quick_text_input.text_submitted.connect(_on_host_4p_text_submitted)
-		$LobbyUI.add_child(quick_text_input, true)
-		quick_text_input.grab_focus()
+	if state == State.DEFAULT and Input.is_action_just_pressed("two_player"):
+		$LobbyUI/MarginContainer/VBoxContainer/TwoPlayer.pressed.emit()
 
-	if state == State.DEFAULT and Input.is_action_just_pressed("connect"):
-		state = State.CONNECT_PRESSED
-		quick_text_input = load("res://scenes/quick_text_input.tscn").instantiate()
-		quick_text_input.set_placeholder("IP:PORT")
-		quick_text_input.text_submitted.connect(_on_connect_text_submitted)
-		$LobbyUI.add_child(quick_text_input, true)
-		quick_text_input.grab_focus()
+	if state == State.DEFAULT and Input.is_action_just_pressed("four_player"):
+		$LobbyUI/MarginContainer/VBoxContainer/FourPlayer.pressed.emit()
 
-	if state == State.DEFAULT and Input.is_action_just_pressed("queue_2p"):
-		if queue_game("2p"):
-			state = State.WAITING
-			$LobbyUI/InfoMarginContainer/Label.text = "WAITING FOR OPPONENT"
-		else:
-			$LobbyUI/InfoMarginContainer/Label.text = "FAILED TO QUEUE"
-			reset_multiplayer_peer()
-			state = State.DEFAULT
+	# TODO: restore ability to HOST 2P/4P and CONNECT - this will probably involve menus
 
-	if state == State.DEFAULT and Input.is_action_just_pressed("queue_4p"):
-		if queue_game("4p"):
-			state = State.WAITING
-			$LobbyUI/InfoMarginContainer/Label.text = "WAITING FOR OPPONENT"
-		else:
-			$LobbyUI/InfoMarginContainer/Label.text = "FAILED TO QUEUE"
-			reset_multiplayer_peer()
-			state = State.DEFAULT
-
-	if state == State.DEFAULT and Input.is_action_just_pressed("solo"):
-		state = State.PLAYING
-
-		var peers = [
-			{"peer_id": 1, "ready": false}
-		]
-
-		var match_id = rng.randi()
-		var random_seed = rng.randi()
-
-		matches[match_id] = {
-			"state": "pending",
-			"peers": peers,
-			"seed": random_seed,
-		}
-
-		announce_boot_arena(match_id)
+	if state != State.DEFAULT:
+		$LobbyUI/MarginContainer/VBoxContainer/OnePlayer.disabled = true
+		$LobbyUI/MarginContainer/VBoxContainer/TwoPlayer.disabled = true
+		$LobbyUI/MarginContainer/VBoxContainer/FourPlayer.disabled = true
+		
+		$LobbyUI/MarginContainer/VBoxContainer/Cancel.visible = true
+		$LobbyUI/MarginContainer/VBoxContainer/Cancel.disabled = false
+	else:
+		$LobbyUI/MarginContainer/VBoxContainer/OnePlayer.disabled = false
+		$LobbyUI/MarginContainer/VBoxContainer/TwoPlayer.disabled = false
+		$LobbyUI/MarginContainer/VBoxContainer/FourPlayer.disabled = false
+		
+		$LobbyUI/MarginContainer/VBoxContainer/Cancel.visible = false
+		$LobbyUI/MarginContainer/VBoxContainer/Cancel.disabled = true
 
 func _on_peer_connected(peer_id: int) -> void:
 	print("Peer connected: ", peer_id)
@@ -474,5 +435,60 @@ func announce_leave_match(match_id):
 	arena.queue_free()
 
 	if DisplayServer.get_name() != "headless":
-		state = State.DEFAULT
 		reset_multiplayer_peer()
+
+	state = State.DEFAULT
+	$LobbyUI/MarginContainer/VBoxContainer/OnePlayer.grab_focus()
+
+func _on_one_player_pressed() -> void:
+	if state != State.DEFAULT:
+		return
+
+	state = State.PLAYING
+
+	var peers = [
+		{"peer_id": 1, "ready": false}
+	]
+
+	var match_id = rng.randi()
+	var random_seed = rng.randi()
+
+	matches[match_id] = {
+		"state": "pending",
+		"peers": peers,
+		"seed": random_seed,
+	}
+
+	announce_boot_arena(match_id)
+
+func _on_two_player_pressed() -> void:
+	if state != State.DEFAULT:
+		return
+
+	if queue_game("2p"):
+		state = State.WAITING
+		$LobbyUI/InfoMarginContainer/Label.text = "WAITING FOR OPPONENT"
+	else:
+		$LobbyUI/InfoMarginContainer/Label.text = "FAILED TO QUEUE"
+		reset_multiplayer_peer()
+		state = State.DEFAULT
+
+func _on_four_player_pressed() -> void:
+	if state != State.DEFAULT:
+		return
+
+	if queue_game("4p"):
+		state = State.WAITING
+		$LobbyUI/InfoMarginContainer/Label.text = "WAITING FOR OPPONENT"
+	else:
+		$LobbyUI/InfoMarginContainer/Label.text = "FAILED TO QUEUE"
+		reset_multiplayer_peer()
+		state = State.DEFAULT
+
+func _on_cancel_pressed() -> void:
+	state = State.DEFAULT
+	reset_multiplayer_peer()
+	$LobbyUI/InfoMarginContainer/Label.text = ""
+	if quick_text_input != null:
+		quick_text_input.queue_free()
+	$LobbyUI/MarginContainer/VBoxContainer/OnePlayer.grab_focus()
