@@ -4,6 +4,43 @@
 [ext_resource type="LabelSettings" uid="uid://bw7f23l3xceoc" path="res://resources/label_8.tres" id="2_1670a"]
 [ext_resource type="FontFile" uid="uid://c0t3svin2bvld" path="res://assets/kongtext.ttf" id="3_dmsei"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cl6f3"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.07058824, 0.13333334, 0.1882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_awiwq"]
+bg_color = Color(0.73333335, 0.23529412, 0.3882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6d74"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.4117647, 0.15686275, 0.31764707, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ljqyw"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.40784314, 0.50980395, 0.65882355, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dmsei"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.07058824, 0.13333334, 0.1882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8509804, 0.91764706, 0.972549, 1)
+anti_aliasing = false
+
 [node name="App" type="Node" unique_id=581750593 groups=["App"]]
 script = ExtResource("1_0wu41")
 
@@ -48,7 +85,13 @@ theme_override_colors/font_focus_color = Color(0.6862745, 0.89411765, 0.7411765,
 theme_override_colors/font_pressed_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
 theme_override_colors/font_hover_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_disabled_color = Color(0.69411767, 0.79607844, 0.8862745, 1)
 theme_override_fonts/font = ExtResource("3_dmsei")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cl6f3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_awiwq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_k6d74")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ljqyw")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dmsei")
 text = "[1] 1P"
 
 [node name="TwoPlayer" type="Button" parent="LobbyUI/MarginContainer/VBoxContainer" unique_id=275742316]
@@ -58,7 +101,13 @@ theme_override_colors/font_focus_color = Color(0.6862745, 0.89411765, 0.7411765,
 theme_override_colors/font_pressed_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
 theme_override_colors/font_hover_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_disabled_color = Color(0.69411767, 0.79607844, 0.8862745, 1)
 theme_override_fonts/font = ExtResource("3_dmsei")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cl6f3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_awiwq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_k6d74")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ljqyw")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dmsei")
 text = "[2] 2P"
 
 [node name="FourPlayer" type="Button" parent="LobbyUI/MarginContainer/VBoxContainer" unique_id=267043701]
@@ -68,7 +117,13 @@ theme_override_colors/font_focus_color = Color(0.6862745, 0.89411765, 0.7411765,
 theme_override_colors/font_pressed_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
 theme_override_colors/font_hover_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_disabled_color = Color(0.69411767, 0.79607844, 0.8862745, 1)
 theme_override_fonts/font = ExtResource("3_dmsei")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cl6f3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_awiwq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_k6d74")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ljqyw")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dmsei")
 text = "[4] 4P"
 
 [node name="Cancel" type="Button" parent="LobbyUI/MarginContainer/VBoxContainer" unique_id=487645916]
@@ -79,7 +134,13 @@ theme_override_colors/font_focus_color = Color(0.6862745, 0.89411765, 0.7411765,
 theme_override_colors/font_pressed_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
 theme_override_colors/font_hover_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_disabled_color = Color(0.69411767, 0.79607844, 0.8862745, 1)
 theme_override_fonts/font = ExtResource("3_dmsei")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cl6f3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_awiwq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_k6d74")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ljqyw")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dmsei")
 text = "[ESC] CANCEL"
 
 [connection signal="pressed" from="LobbyUI/MarginContainer/VBoxContainer/OnePlayer" to="." method="_on_one_player_pressed"]
