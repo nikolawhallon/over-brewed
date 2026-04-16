@@ -8,6 +8,7 @@ const SPEED = 50.0
 @export var cafe = ""
 @export var holding = ""
 var facing = null
+var mouse_target = null
 
 func init(initial_peer_id, initial_cafe, initial_global_position):
 	peer_id = initial_peer_id
@@ -19,6 +20,25 @@ func _ready():
 
 	if not multiplayer.is_server():
 		return
+
+func _input(event):
+	if multiplayer.get_unique_id() != peer_id:
+		return
+
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			mouse_target = get_global_mouse_position()
+		else:
+			mouse_target = null
+	elif event is InputEventMouseMotion and event.button_mask & MOUSE_BUTTON_MASK_LEFT:
+		mouse_target = get_global_mouse_position()
+	elif event is InputEventScreenTouch:
+		if event.pressed:
+			mouse_target = event.position
+		else:
+			mouse_target = null
+	elif event is InputEventScreenDrag:
+		mouse_target = event.position
 
 func _physics_process(_delta: float) -> void:
 	if holding == "beans":
@@ -119,6 +139,15 @@ func calculate_new_direction():
 
 	if dpad != Vector2.ZERO:
 		return dpad.normalized()
+
+	if mouse_target != null:
+		var direction_to_target = mouse_target - global_position
+		var distance_to_target = direction_to_target.length()
+
+		if distance_to_target < 4.0:
+			return Vector2.ZERO
+
+		return direction_to_target.normalized()
 
 	return Vector2.ZERO
 
