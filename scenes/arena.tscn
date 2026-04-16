@@ -90,7 +90,7 @@ wait_time = 10.0
 autostart = true
 
 [node name="LeftMailmanSpawnArea" type="Area2D" parent="." unique_id=821364098]
-position = Vector2(-320, -104)
+position = Vector2(-320, -108)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("4_xdvfk")
@@ -99,7 +99,7 @@ script = ExtResource("4_xdvfk")
 shape = SubResource("RectangleShape2D_olpmc")
 
 [node name="RightMailmanSpawnArea" type="Area2D" parent="." unique_id=671862552]
-position = Vector2(320, -104)
+position = Vector2(320, -108)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("4_xdvfk")
