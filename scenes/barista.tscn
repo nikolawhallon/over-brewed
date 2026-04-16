@@ -5,10 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://b5pplpf63ns2u" path="res://assets/barista/barista-idle-2.png" id="2_5fsgc"]
 [ext_resource type="Texture2D" uid="uid://dfydvebyhpo1u" path="res://assets/coffee/bean-icon.png" id="2_17x05"]
 [ext_resource type="Texture2D" uid="uid://co3xd5ifry28q" path="res://assets/beans.png" id="2_b8crr"]
-[ext_resource type="Texture2D" uid="uid://cwjfgq4vft4mv" path="res://assets/coffee.png" id="3_q4d84"]
+[ext_resource type="Texture2D" uid="uid://byrklh68rp7t3" path="res://assets/coffee/coffee.png" id="3_m532l"]
 [ext_resource type="Texture2D" uid="uid://bnwxe38ecmilq" path="res://assets/barista/barista-move-1.png" id="3_swm0g"]
 [ext_resource type="Texture2D" uid="uid://b6huvhb47w77d" path="res://assets/waste.png" id="4_17x05"]
 [ext_resource type="Texture2D" uid="uid://bcyfapbqex538" path="res://assets/barista/barista-move-2.png" id="4_k2txo"]
+[ext_resource type="Texture2D" uid="uid://b61dvysd65q33" path="res://assets/wine/wine.png" id="6_m532l"]
 [ext_resource type="PackedScene" uid="uid://crfcwsne50c0c" path="res://scenes/helpers/match_visibility.tscn" id="6_swm0g"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mvyd6"]
@@ -67,7 +68,7 @@ texture = ExtResource("2_17x05")
 [node name="Coffee" type="Sprite2D" parent="." unique_id=371870849]
 visible = false
 position = Vector2(4, -4)
-texture = ExtResource("3_q4d84")
+texture = ExtResource("3_m532l")
 
 [node name="Waste" type="Sprite2D" parent="." unique_id=729843024]
 visible = false
@@ -82,7 +83,7 @@ texture = ExtResource("2_b8crr")
 [node name="Wine" type="Sprite2D" parent="." unique_id=1167275916]
 visible = false
 position = Vector2(4, -4)
-texture = ExtResource("2_b8crr")
+texture = ExtResource("6_m532l")
 
 [node name="Newspaper" type="Sprite2D" parent="." unique_id=170513733]
 visible = false
