@@ -62,6 +62,7 @@ text = "RIGHT: 0"
 label_settings = ExtResource("3_olpmc")
 
 [node name="CustomerTimer" type="Timer" parent="." unique_id=613467295]
+wait_time = 2.0
 autostart = true
 
 [node name="PowerUpTimer" type="Timer" parent="." unique_id=2057477472]
