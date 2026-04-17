@@ -108,6 +108,9 @@ properties/3/replication_mode = 1
 properties/4/path = NodePath(".:holding")
 properties/4/spawn = true
 properties/4/replication_mode = 1
+properties/5/path = NodePath(".:skin_type")
+properties/5/spawn = true
+properties/5/replication_mode = 1
 
 [node name="Barista" type="CharacterBody2D" unique_id=892979916 groups=["Barista"]]
 script = ExtResource("1_xwpi6")

@@ -18,11 +18,13 @@ func init(initial_peer_id, initial_cafe, initial_global_position, initial_skin_t
 	skin_type = initial_skin_type
 
 func _ready():
+	if $AnimatedSprite2D.material:                                                                                                                        
+		$AnimatedSprite2D.material = $AnimatedSprite2D.material.duplicate()                                                                           
+
 	$AnimatedSprite2D.play("idle")
 	$Waste.play("default")
 
 	if $AnimatedSprite2D.material:
-		# Set apron color based on cafe
 		if cafe == "right":
 			$AnimatedSprite2D.material.set_shader_parameter("apron_color", Color("#333a7f"))
 

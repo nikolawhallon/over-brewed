@@ -28,6 +28,7 @@ func _process(_delta: float) -> void:
 					continue
 				var num_baristas = len(NodeUtils.get_nodes_in_group_for_node(self, "Barista"))
 				var skin_type = skin_types[num_baristas % len(skin_types)]
+				print(skin_type)
 
 				if num_baristas % 2 == 0:
 					var barista = load("res://scenes/barista.tscn").instantiate()
