@@ -15,6 +15,18 @@ enum State {
 var state = State.VOID
 var left_score = 0
 var right_score = 0
+var time_left = 180
+
+func _ready():
+	if not multiplayer.is_server():
+		return
+
+	for peer in NodeUtils.get_first_ancestor_in_group_for_node(self, "App").get_peer_ids_for_match(match_id):
+		if peer == 1:
+			continue
+		announce_update_time_left.rpc_id(peer, time_left)
+
+	announce_update_time_left(time_left)
 
 func _process(_delta: float) -> void:
 	if state == State.STARTING:
@@ -39,8 +51,9 @@ func _process(_delta: float) -> void:
 					barista.init(peer, "right", $RightCafe.position + Vector2(0, - num_baristas / 2 * 16), skin_type)
 					$Replicated.add_child(barista, true)
 
-	if Input.is_action_just_pressed("leave"):
-		emit_signal("leave_requested")
+	if Input.is_action_just_pressed("leave") and state == State.GAME_OVER:
+		print(state)
+		$CanvasLayer/LobbyButtonContainer/LobbyButton.pressed.emit()
 
 	if not multiplayer.is_server():
 		return
@@ -61,8 +74,20 @@ func announce_update_right_score(new_score: int) -> void:
 	$CanvasLayer/RightContainer/RightScore.text = "RIGHT: %d" % right_score
 	$CanvasLayer/TotalContainer/TotalScore.text = "TOTAL: %d" % (left_score + right_score)
 
+@rpc("authority", "reliable")
+func announce_update_time_left(new_time_left: int) -> void:
+	time_left = new_time_left
+	$CanvasLayer/TimeLeftContainer/TimeLeftLabel.text = "%d" % time_left
+	if time_left == 0:
+		state = State.GAME_OVER
+		$CanvasLayer/LobbyButtonContainer.visible = true
+		$CanvasLayer/LobbyButtonContainer/LobbyButton.grab_focus()
+
 func _on_customer_timer_timeout() -> void:
 	if not multiplayer.is_server():
+		return
+
+	if state == State.GAME_OVER:
 		return
 
 	var customer = load("res://scenes/customer.tscn").instantiate()
@@ -86,16 +111,18 @@ func _on_left_cafe_customer_left(served) -> void:
 	if not served:
 		return
 
+	var new_score = left_score
+	
 	if served == "coffee":
-		left_score += 1
+		new_score = left_score + 1
 	elif served == "wine":
-		left_score += 2
+		new_score = left_score + 2
 	for peer in NodeUtils.get_first_ancestor_in_group_for_node(self, "App").get_peer_ids_for_match(match_id):
 		if peer == 1:
 			continue
-		announce_update_left_score.rpc_id(peer, left_score)
+		announce_update_left_score.rpc_id(peer, new_score)
 
-	announce_update_left_score(left_score)
+	announce_update_left_score(new_score)
 
 func _on_right_cafe_customer_left(served) -> void:
 	if not multiplayer.is_server():
@@ -104,19 +131,24 @@ func _on_right_cafe_customer_left(served) -> void:
 	if not served:
 		return
 
+	var new_score = right_score
+	
 	if served == "coffee":
-		right_score += 1
+		new_score = right_score + 1
 	elif served == "wine":
-		right_score += 2
+		new_score = right_score + 2
 	for peer in NodeUtils.get_first_ancestor_in_group_for_node(self, "App").get_peer_ids_for_match(match_id):
 		if peer == 1:
 			continue
-		announce_update_right_score.rpc_id(peer, right_score)
+		announce_update_right_score.rpc_id(peer, new_score)
 
-	announce_update_right_score(right_score)
+	announce_update_right_score(new_score)
 
 func _on_power_up_timer_timeout() -> void:
 	if not multiplayer.is_server():
+		return
+
+	if state == State.GAME_OVER:
 		return
 
 	var power_ups = NodeUtils.get_nodes_in_group_for_node(self, "PowerUp")
@@ -135,3 +167,21 @@ func _on_power_up_timer_timeout() -> void:
 	var mailman = load("res://scenes/mailman.tscn").instantiate()
 	mailman.init(initial_global_position, spawn_area.get_path(), target)
 	$Replicated.add_child(mailman, true)
+
+func _on_game_timer_timeout() -> void:
+	if not multiplayer.is_server():
+		return
+
+	if time_left == 0:
+		return
+
+	var new_time_left = time_left - 1
+	for peer in NodeUtils.get_first_ancestor_in_group_for_node(self, "App").get_peer_ids_for_match(match_id):
+		if peer == 1:
+			continue
+		announce_update_time_left.rpc_id(peer, new_time_left)
+
+	announce_update_time_left(new_time_left)
+
+func _on_lobby_button_pressed() -> void:
+	emit_signal("leave_requested")

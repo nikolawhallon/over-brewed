@@ -116,6 +116,10 @@ func _physics_process(_delta: float) -> void:
 	if not multiplayer.is_server():
 		return
 
+	var arena = NodeUtils.get_first_ancestor_in_group_for_node(self, "Arena")
+	if arena.state == 3:  # State.GAME_OVER = 3
+		return
+
 	velocity = direction * SPEED
 	move_and_slide()
 

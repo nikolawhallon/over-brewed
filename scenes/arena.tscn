@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d30p8sfyml00g" path="res://scenes/cafe.tscn" id="3_xdvfk"]
 [ext_resource type="Script" uid="uid://cybe0m7l7ovpu" path="res://scenes/spawn_area.gd" id="4_xdvfk"]
 [ext_resource type="PackedScene" uid="uid://coeutl0j6w2hm" path="res://scenes/garbage_can.tscn" id="6_4ag8t"]
+[ext_resource type="FontFile" uid="uid://c0t3svin2bvld" path="res://assets/kongtext.ttf" id="7_k9m2x"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4ag8t"]
 texture = ExtResource("2_7ft05")
@@ -15,13 +16,50 @@ texture = ExtResource("2_7ft05")
 [sub_resource type="TileSet" id="TileSet_dpxgc"]
 sources/0 = SubResource("TileSetAtlasSource_4ag8t")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8k3m"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.07058824, 0.13333334, 0.1882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_9vn2p"]
+bg_color = Color(0.73333335, 0.23529412, 0.3882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h4x7q"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.4117647, 0.15686275, 0.31764707, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w6c9f"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.40784314, 0.50980395, 0.65882355, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t5j8n"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.07058824, 0.13333334, 0.1882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8509804, 0.91764706, 0.972549, 1)
+anti_aliasing = false
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_olpmc"]
 size = Vector2(8, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mailman_right"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b2v7k"]
 size = Vector2(8, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_customer_left"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m9d4x"]
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xdvfk"]
@@ -99,6 +137,59 @@ layout_mode = 2
 text = "RIGHT: 0"
 label_settings = ExtResource("3_olpmc")
 
+[node name="TimeLeftContainer" type="MarginContainer" parent="CanvasLayer" unique_id=1524704150]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="TimeLeftLabel" type="Label" parent="CanvasLayer/TimeLeftContainer" unique_id=592790171]
+layout_mode = 2
+text = "180"
+label_settings = ExtResource("3_olpmc")
+horizontal_alignment = 1
+
+[node name="LobbyButtonContainer" type="MarginContainer" parent="CanvasLayer" unique_id=1721468512]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = -20.0
+offset_right = 52.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="LobbyButton" type="Button" parent="CanvasLayer/LobbyButtonContainer" unique_id=1831560934]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.28235295, 0.7647059, 0.6039216, 1)
+theme_override_colors/font_focus_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_hover_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.6862745, 0.89411765, 0.7411765, 1)
+theme_override_colors/font_disabled_color = Color(0.69411767, 0.79607844, 0.8862745, 1)
+theme_override_fonts/font = ExtResource("7_k9m2x")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r8k3m")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_9vn2p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h4x7q")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_w6c9f")
+theme_override_styles/focus = SubResource("StyleBoxFlat_t5j8n")
+text = "[L] LOBBY"
+
 [node name="CustomerTimer" type="Timer" parent="." unique_id=613467295]
 wait_time = 2.0
 autostart = true
@@ -123,7 +214,7 @@ collision_mask = 2
 script = ExtResource("4_xdvfk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightMailmanSpawnArea" unique_id=2050820382]
-shape = SubResource("RectangleShape2D_mailman_right")
+shape = SubResource("RectangleShape2D_b2v7k")
 
 [node name="LeftCustomerSpawnArea" type="Area2D" parent="." unique_id=1125534182]
 position = Vector2(-320, 80)
@@ -132,7 +223,7 @@ collision_mask = 2
 script = ExtResource("4_xdvfk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftCustomerSpawnArea" unique_id=303306410]
-shape = SubResource("RectangleShape2D_customer_left")
+shape = SubResource("RectangleShape2D_m9d4x")
 
 [node name="RightCustomerSpawnArea" type="Area2D" parent="." unique_id=2030581180]
 position = Vector2(320, 80)
@@ -149,11 +240,16 @@ position = Vector2(-8, -56)
 [node name="RightGarbageCan" parent="." unique_id=421079271 instance=ExtResource("6_4ag8t")]
 position = Vector2(8, -56)
 
+[node name="GameTimer" type="Timer" parent="." unique_id=2140754440]
+autostart = true
+
 [connection signal="customer_left" from="LeftCafe" to="." method="_on_left_cafe_customer_left"]
 [connection signal="customer_left" from="RightCafe" to="." method="_on_right_cafe_customer_left"]
+[connection signal="pressed" from="CanvasLayer/LobbyButtonContainer/LobbyButton" to="." method="_on_lobby_button_pressed"]
 [connection signal="timeout" from="CustomerTimer" to="." method="_on_customer_timer_timeout"]
 [connection signal="timeout" from="PowerUpTimer" to="." method="_on_power_up_timer_timeout"]
 [connection signal="body_entered" from="LeftMailmanSpawnArea" to="LeftMailmanSpawnArea" method="_on_body_entered"]
 [connection signal="body_entered" from="RightMailmanSpawnArea" to="RightMailmanSpawnArea" method="_on_body_entered"]
 [connection signal="body_entered" from="LeftCustomerSpawnArea" to="LeftCustomerSpawnArea" method="_on_body_entered"]
 [connection signal="body_entered" from="RightCustomerSpawnArea" to="RightCustomerSpawnArea" method="_on_body_entered"]
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
