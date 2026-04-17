@@ -74,7 +74,6 @@ func _physics_process(_delta: float) -> void:
 		$Waste.visible = true
 		$Grapes.visible = false
 		$Wine.visible = false
-		$Newspaper.visible = false
 	elif holding == "grapes":
 		$Beans.visible = false
 		$Coffee.visible = false
