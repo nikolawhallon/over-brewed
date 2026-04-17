@@ -53,11 +53,13 @@ func announce_start_game(_random_seed, _peers):
 func announce_update_left_score(new_score: int) -> void:
 	left_score = new_score
 	$CanvasLayer/LeftContainer/LeftScore.text = "LEFT: %d" % left_score
+	$CanvasLayer/TotalContainer/TotalScore.text = "TOTAL: %d" % (left_score + right_score)
 
 @rpc("authority", "reliable")
 func announce_update_right_score(new_score: int) -> void:
 	right_score = new_score
 	$CanvasLayer/RightContainer/RightScore.text = "RIGHT: %d" % right_score
+	$CanvasLayer/TotalContainer/TotalScore.text = "TOTAL: %d" % (left_score + right_score)
 
 func _on_customer_timer_timeout() -> void:
 	if not multiplayer.is_server():

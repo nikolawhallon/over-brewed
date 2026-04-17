@@ -52,6 +52,22 @@ position = Vector2(0, -8)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=793026886]
 
+[node name="TotalContainer" type="MarginContainer" parent="CanvasLayer" unique_id=1412095667]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 8.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="TotalScore" type="Label" parent="CanvasLayer/TotalContainer" unique_id=206976035]
+layout_mode = 2
+text = "TOTAL: 0"
+label_settings = ExtResource("3_olpmc")
+horizontal_alignment = 1
+
 [node name="LeftContainer" type="MarginContainer" parent="CanvasLayer" unique_id=152495920]
 offset_right = 72.0
 offset_bottom = 16.0
@@ -92,7 +108,7 @@ wait_time = 10.0
 autostart = true
 
 [node name="LeftMailmanSpawnArea" type="Area2D" parent="." unique_id=821364098]
-position = Vector2(-320, -108)
+position = Vector2(-320, -116)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("4_xdvfk")
@@ -101,7 +117,7 @@ script = ExtResource("4_xdvfk")
 shape = SubResource("RectangleShape2D_olpmc")
 
 [node name="RightMailmanSpawnArea" type="Area2D" parent="." unique_id=671862552]
-position = Vector2(320, -108)
+position = Vector2(320, -116)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("4_xdvfk")
