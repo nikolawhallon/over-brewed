@@ -1,23 +1,26 @@
 [gd_scene format=3 uid="uid://brjxky5ptfplk"]
 
 [ext_resource type="Script" uid="uid://bw7466woionxp" path="res://scenes/customer.gd" id="1_qqxhk"]
-[ext_resource type="Texture2D" uid="uid://dgwemui1rsx5o" path="res://assets/barista/barista-idle-1.png" id="1_rjbu2"]
+[ext_resource type="Texture2D" uid="uid://dqtj4emqy2bf1" path="res://assets/bubble.png" id="2_hnsn0"]
 [ext_resource type="Texture2D" uid="uid://byrklh68rp7t3" path="res://assets/coffee/coffee.png" id="2_pk6lr"]
-[ext_resource type="Texture2D" uid="uid://b5pplpf63ns2u" path="res://assets/barista/barista-idle-2.png" id="2_qqxhk"]
-[ext_resource type="Texture2D" uid="uid://bnwxe38ecmilq" path="res://assets/barista/barista-move-1.png" id="3_846g6"]
 [ext_resource type="Texture2D" uid="uid://b61dvysd65q33" path="res://assets/wine/wine.png" id="3_pk6lr"]
-[ext_resource type="Texture2D" uid="uid://bcyfapbqex538" path="res://assets/barista/barista-move-2.png" id="4_qj8gj"]
+[ext_resource type="Texture2D" uid="uid://cn70wxk3rkxg2" path="res://assets/customer/customer-idle-1.png" id="4_t2aad"]
+[ext_resource type="Texture2D" uid="uid://b2quhdrdo3vds" path="res://assets/customer/customer-idle-2.png" id="5_hnsn0"]
 [ext_resource type="PackedScene" uid="uid://crfcwsne50c0c" path="res://scenes/helpers/match_visibility.tscn" id="6_846g6"]
+[ext_resource type="Texture2D" uid="uid://dxluvoi3b1uk2" path="res://assets/customer/customer-move-1.png" id="6_r88ql"]
+[ext_resource type="Texture2D" uid="uid://cdw5oa5bj82f5" path="res://assets/customer/customer-move-2.png" id="7_02a8g"]
+[ext_resource type="Texture2D" uid="uid://b1vr5by73j0vh" path="res://assets/customer/customer-move-3.png" id="8_0m07s"]
 [ext_resource type="PackedScene" uid="uid://dt261t25jn6a7" path="res://scenes/timer_progress.tscn" id="9_pk6lr"]
+[ext_resource type="Texture2D" uid="uid://bg6ruvcgvt87p" path="res://assets/customer/customer-move-4.png" id="9_y3ht7"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_w2wat"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_rjbu2")
+"texture": ExtResource("4_t2aad")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_qqxhk")
+"texture": ExtResource("5_hnsn0")
 }],
 "loop": true,
 "name": &"idle",
@@ -25,10 +28,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_846g6")
+"texture": ExtResource("6_r88ql")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_qj8gj")
+"texture": ExtResource("7_02a8g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_0m07s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_y3ht7")
 }],
 "loop": true,
 "name": &"move",
@@ -63,14 +72,22 @@ collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_qqxhk")
 
+[node name="Bubble" type="Sprite2D" parent="." unique_id=870645784]
+visible = false
+z_index = -1
+texture = ExtResource("2_hnsn0")
+offset = Vector2(-12, -8)
+
 [node name="Coffee" type="Sprite2D" parent="." unique_id=354224651]
 visible = false
-position = Vector2(-8, -4)
+z_index = -1
+position = Vector2(-12, -10)
 texture = ExtResource("2_pk6lr")
 
 [node name="Wine" type="Sprite2D" parent="." unique_id=1591792866]
 visible = false
-position = Vector2(-8, -4)
+z_index = -1
+position = Vector2(-12, -10)
 texture = ExtResource("3_pk6lr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=65188880]

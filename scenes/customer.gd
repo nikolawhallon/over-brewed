@@ -37,12 +37,15 @@ func get_opposite_spawn_area_random_position() -> Vector2:
 
 func _physics_process(_delta: float) -> void:
 	if state != State.LEAVING and desire == "coffee":
+		$Bubble.visible = true
 		$Coffee.visible = true
 		$Wine.visible = false
 	elif state != State.LEAVING and desire == "wine":
+		$Bubble.visible = true
 		$Coffee.visible = false
 		$Wine.visible = true
 	else:
+		$Bubble.visible = false
 		$Coffee.visible = false
 		$Wine.visible = false
 
@@ -71,7 +74,10 @@ func _physics_process(_delta: float) -> void:
 	if target != null:
 		direction = (target - global_position).normalized()
 
-		velocity = direction * SPEED
+		if state == State.LEAVING:
+			velocity = direction * SPEED * 2
+		else:
+			velocity = direction * SPEED
 		move_and_slide()
 
 		if global_position.distance_to(target) < 8:
@@ -93,10 +99,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			cafe.release_slot(self.get_path())
 			target = get_opposite_spawn_area_random_position()
 			state = State.LEAVING
-		elif body.holding == "newspaper":
-			var cafe = get_node(cafe_path)
-			cafe.customer_left.emit(false)
-			cafe.release_slot(self.get_path())
+	if state != State.LEAVING and body.is_in_group("Barista"):
+		if body.holding == "newspaper":
+			if state == State.WAITING:
+				var cafe = get_node(cafe_path)
+				cafe.customer_left.emit(false)
+				cafe.release_slot(self.get_path())
 			target = get_opposite_spawn_area_random_position()
 			state = State.LEAVING
 
