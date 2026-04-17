@@ -15,13 +15,13 @@ func _ready():
 	$AnimatedSprite2D.play("default")
 
 func _physics_process(_delta: float) -> void:
+	if not multiplayer.is_server():
+		return
+
 	if target.x < global_position.x:
 		$AnimatedSprite2D.flip_h = true
 	else:
 		$AnimatedSprite2D.flip_h = false
-
-	if not multiplayer.is_server():
-		return
 
 	if target != null:
 		direction = (target - global_position).normalized()
