@@ -20,17 +20,22 @@ func _process(_delta: float) -> void:
 	if state == State.STARTING:
 		state = State.PLAYING
 		if multiplayer.is_server():
+			var skin_types = [1, 2, 3, 4]
+			skin_types.shuffle()
+
 			for peer in NodeUtils.get_first_ancestor_in_group_for_node(self, "App").get_peer_ids_for_match(match_id):
 				if DisplayServer.get_name() == "headless" and peer == 1:
 					continue
 				var num_baristas = len(NodeUtils.get_nodes_in_group_for_node(self, "Barista"))
+				var skin_type = skin_types[num_baristas % len(skin_types)]
+
 				if num_baristas % 2 == 0:
 					var barista = load("res://scenes/barista.tscn").instantiate()
-					barista.init(peer, "left", $LeftCafe.position + Vector2(0, - num_baristas / 2 * 16))
+					barista.init(peer, "left", $LeftCafe.position + Vector2(0, - num_baristas / 2 * 16), skin_type)
 					$Replicated.add_child(barista, true)
 				else:
 					var barista = load("res://scenes/barista.tscn").instantiate()
-					barista.init(peer, "right", $RightCafe.position + Vector2(0, - num_baristas / 2 * 16))
+					barista.init(peer, "right", $RightCafe.position + Vector2(0, - num_baristas / 2 * 16), skin_type)
 					$Replicated.add_child(barista, true)
 
 	if Input.is_action_just_pressed("leave"):

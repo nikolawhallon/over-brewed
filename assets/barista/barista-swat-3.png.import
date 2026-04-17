@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6huvhb47w77d"
-path="res://.godot/imported/waste.png-b0123ba0fa65febd9a4e73ce7b84888f.ctex"
+uid="uid://ckqyolnqg85it"
+path="res://.godot/imported/barista-swat-3.png-c4799807cb6d0a21a6bb051f982ae4cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/waste.png"
-dest_files=["res://.godot/imported/waste.png-b0123ba0fa65febd9a4e73ce7b84888f.ctex"]
+source_file="res://assets/barista/barista-swat-3.png"
+dest_files=["res://.godot/imported/barista-swat-3.png-c4799807cb6d0a21a6bb051f982ae4cd.ctex"]
 
 [params]
 

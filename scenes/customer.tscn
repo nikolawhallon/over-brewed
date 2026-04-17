@@ -65,12 +65,12 @@ script = ExtResource("1_qqxhk")
 
 [node name="Coffee" type="Sprite2D" parent="." unique_id=354224651]
 visible = false
-position = Vector2(-4, -4)
+position = Vector2(-8, -4)
 texture = ExtResource("2_pk6lr")
 
 [node name="Wine" type="Sprite2D" parent="." unique_id=1591792866]
 visible = false
-position = Vector2(-4, -4)
+position = Vector2(-8, -4)
 texture = ExtResource("3_pk6lr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=65188880]

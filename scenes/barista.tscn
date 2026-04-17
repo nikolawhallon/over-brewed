@@ -4,13 +4,42 @@
 [ext_resource type="Script" uid="uid://y0i2wrm80j8b" path="res://scenes/barista.gd" id="1_xwpi6"]
 [ext_resource type="Texture2D" uid="uid://b5pplpf63ns2u" path="res://assets/barista/barista-idle-2.png" id="2_5fsgc"]
 [ext_resource type="Texture2D" uid="uid://dfydvebyhpo1u" path="res://assets/coffee/bean-icon.png" id="2_17x05"]
-[ext_resource type="Texture2D" uid="uid://co3xd5ifry28q" path="res://assets/beans.png" id="2_b8crr"]
 [ext_resource type="Texture2D" uid="uid://byrklh68rp7t3" path="res://assets/coffee/coffee.png" id="3_m532l"]
 [ext_resource type="Texture2D" uid="uid://bnwxe38ecmilq" path="res://assets/barista/barista-move-1.png" id="3_swm0g"]
-[ext_resource type="Texture2D" uid="uid://b6huvhb47w77d" path="res://assets/waste.png" id="4_17x05"]
+[ext_resource type="Texture2D" uid="uid://cp0hlk1y1p0y4" path="res://assets/waste/waste-1.png" id="4_jjuv8"]
 [ext_resource type="Texture2D" uid="uid://bcyfapbqex538" path="res://assets/barista/barista-move-2.png" id="4_k2txo"]
+[ext_resource type="Texture2D" uid="uid://bq4vw2xvlrvbq" path="res://assets/waste/waste-2.png" id="5_igatw"]
 [ext_resource type="Texture2D" uid="uid://b61dvysd65q33" path="res://assets/wine/wine.png" id="6_m532l"]
+[ext_resource type="Texture2D" uid="uid://dmyl7412u34lq" path="res://assets/wine/grapes.png" id="6_oxob3"]
 [ext_resource type="PackedScene" uid="uid://crfcwsne50c0c" path="res://scenes/helpers/match_visibility.tscn" id="6_swm0g"]
+[ext_resource type="Shader" uid="uid://vt1pivw4i50f" path="res://resources/barista.gdshader" id="8_oqf8k"]
+[ext_resource type="Texture2D" uid="uid://bvmxmeqve2wgj" path="res://assets/barista/barista-move-3.png" id="12_h6nyy"]
+[ext_resource type="Texture2D" uid="uid://bs8re8ox85iw8" path="res://assets/barista/barista-move-4.png" id="13_oqf8k"]
+[ext_resource type="Texture2D" uid="uid://cdi8skgwd0q6h" path="res://assets/barista/barista-swat-1.png" id="14_2j2w1"]
+[ext_resource type="Texture2D" uid="uid://dtg4577gkyarc" path="res://assets/barista/barista-swat-2.png" id="15_g41b4"]
+[ext_resource type="Texture2D" uid="uid://ckqyolnqg85it" path="res://assets/barista/barista-swat-3.png" id="16_0o0i6"]
+[ext_resource type="Texture2D" uid="uid://baj2bst0kkksv" path="res://assets/barista/barista-swat-4.png" id="17_kcsc1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eenkl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_jjuv8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_igatw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2j2w1"]
+shader = ExtResource("8_oqf8k")
+shader_parameter/apron_color = Color(0.251, 0.518, 0.314, 1)
+shader_parameter/hair_color = Color(0.071, 0.133, 0.188, 1)
+shader_parameter/skin_color = Color(0.851, 0.525, 0.365, 1)
+shader_parameter/skin_shadow_color = Color(0.624, 0.267, 0.267, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mvyd6"]
 animations = [{
@@ -31,14 +60,37 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("4_k2txo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_h6nyy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_oqf8k")
 }],
 "loop": true,
 "name": &"move",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_2j2w1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_g41b4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_0o0i6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_kcsc1")
+}],
+"loop": true,
+"name": &"swat",
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_14u3r"]
-size = Vector2(7, 7)
+size = Vector2(7, 15)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5fsgc"]
 properties/0/path = NodePath(".:position")
@@ -62,37 +114,33 @@ script = ExtResource("1_xwpi6")
 
 [node name="Beans" type="Sprite2D" parent="." unique_id=755426137]
 visible = false
-position = Vector2(4, -4)
+position = Vector2(8, -4)
 texture = ExtResource("2_17x05")
 
 [node name="Coffee" type="Sprite2D" parent="." unique_id=371870849]
 visible = false
-position = Vector2(4, -4)
+position = Vector2(8, -4)
 texture = ExtResource("3_m532l")
 
-[node name="Waste" type="Sprite2D" parent="." unique_id=729843024]
+[node name="Waste" type="AnimatedSprite2D" parent="." unique_id=212062516]
 visible = false
-position = Vector2(4, -4)
-texture = ExtResource("4_17x05")
+position = Vector2(8, -4)
+sprite_frames = SubResource("SpriteFrames_eenkl")
 
 [node name="Grapes" type="Sprite2D" parent="." unique_id=1225598928]
 visible = false
-position = Vector2(4, -4)
-texture = ExtResource("2_b8crr")
+position = Vector2(8, -4)
+texture = ExtResource("6_oxob3")
 
 [node name="Wine" type="Sprite2D" parent="." unique_id=1167275916]
 visible = false
-position = Vector2(4, -4)
+position = Vector2(8, -4)
 texture = ExtResource("6_m532l")
 
-[node name="Newspaper" type="Sprite2D" parent="." unique_id=170513733]
-visible = false
-position = Vector2(4, -4)
-texture = ExtResource("2_b8crr")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=240989202]
+material = SubResource("ShaderMaterial_2j2w1")
 sprite_frames = SubResource("SpriteFrames_mvyd6")
-animation = &"move"
+animation = &"swat"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=357245551]
 shape = SubResource("RectangleShape2D_14u3r")

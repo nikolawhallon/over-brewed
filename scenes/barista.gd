@@ -7,16 +7,38 @@ const SPEED = 50.0
 @export var direction = Vector2.ZERO
 @export var cafe = ""
 @export var holding = ""
+@export var skin_type = 1
 var facing = null
 var mouse_target = null
 
-func init(initial_peer_id, initial_cafe, initial_global_position):
+func init(initial_peer_id, initial_cafe, initial_global_position, initial_skin_type):
 	peer_id = initial_peer_id
 	cafe = initial_cafe
 	global_position = initial_global_position
+	skin_type = initial_skin_type
 
 func _ready():
 	$AnimatedSprite2D.play("idle")
+	$Waste.play("default")
+
+	if $AnimatedSprite2D.material:
+		# Set apron color based on cafe
+		if cafe == "right":
+			$AnimatedSprite2D.material.set_shader_parameter("apron_color", Color("#333a7f"))
+
+		match skin_type:
+			1:
+				pass
+			2:
+				$AnimatedSprite2D.material.set_shader_parameter("hair_color", Color("#122230"))
+				$AnimatedSprite2D.material.set_shader_parameter("skin_color", Color("#542730"))
+				$AnimatedSprite2D.material.set_shader_parameter("skin_shadow_color", Color("#244a63"))
+			3:
+				$AnimatedSprite2D.material.set_shader_parameter("hair_color", Color("#f6d995"))
+			4:
+				$AnimatedSprite2D.material.set_shader_parameter("hair_color", Color("#bb3c63"))
+				$AnimatedSprite2D.material.set_shader_parameter("skin_color", Color("#f9b9d8"))
+				$AnimatedSprite2D.material.set_shader_parameter("skin_shadow_color", Color("#ed6697"))
 
 	if not multiplayer.is_server():
 		return
@@ -40,14 +62,12 @@ func _physics_process(_delta: float) -> void:
 		$Waste.visible = false
 		$Grapes.visible = false
 		$Wine.visible = false
-		$Newspaper.visible = false
 	elif holding == "coffee":
 		$Beans.visible = false
 		$Coffee.visible = true
 		$Waste.visible = false
 		$Grapes.visible = false
 		$Wine.visible = false
-		$Newspaper.visible = false
 	elif holding == "waste":
 		$Beans.visible = false
 		$Coffee.visible = false
@@ -55,36 +75,28 @@ func _physics_process(_delta: float) -> void:
 		$Grapes.visible = false
 		$Wine.visible = false
 		$Newspaper.visible = false
-	elif holding == "newspaper":
-		$Beans.visible = false
-		$Coffee.visible = false
-		$Waste.visible = false
-		$Grapes.visible = false
-		$Wine.visible = false
-		$Newspaper.visible = true
 	elif holding == "grapes":
 		$Beans.visible = false
 		$Coffee.visible = false
 		$Waste.visible = false
 		$Grapes.visible = true
 		$Wine.visible = false
-		$Newspaper.visible = false
 	elif holding == "wine":
 		$Beans.visible = false
 		$Coffee.visible = false
 		$Waste.visible = false
 		$Grapes.visible = false
 		$Wine.visible = true
-		$Newspaper.visible = false
 	else:
 		$Beans.visible = false
 		$Coffee.visible = false
 		$Waste.visible = false
 		$Grapes.visible = false
 		$Wine.visible = false
-		$Newspaper.visible = false
 
-	if direction != Vector2.ZERO:
+	if holding == "newspaper":
+		$AnimatedSprite2D.play("swat")
+	elif direction != Vector2.ZERO:
 		$AnimatedSprite2D.play("move")
 	else:
 		$AnimatedSprite2D.play("idle")
