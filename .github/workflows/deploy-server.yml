@@ -35,13 +35,15 @@ jobs:
         id: env
         run: |
           BASE_NAME="${{ github.event.repository.name }}"
+          EVENT="${{ github.event_name }}"
+          INPUT_ENV="${{ inputs.environment }}"
 
-          if [ "${{ github.event_name }}" == "release" ]; then
+          if [ "$EVENT" = "release" ]; then
             echo "environment=production" >> $GITHUB_OUTPUT
             echo "export_type=release" >> $GITHUB_OUTPUT
             echo "port=5004" >> $GITHUB_OUTPUT
             echo "deploy_name=${BASE_NAME}" >> $GITHUB_OUTPUT
-          elif [ "${{ github.event_name }}" == "workflow_dispatch" ] && [ "${{ inputs.environment }}" == "production" ]; then
+          elif [ "$EVENT" = "workflow_dispatch" ] && [ "$INPUT_ENV" = "production" ]; then
             echo "environment=production" >> $GITHUB_OUTPUT
             echo "export_type=release" >> $GITHUB_OUTPUT
             echo "port=5004" >> $GITHUB_OUTPUT
