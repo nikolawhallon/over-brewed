@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 NodeUtils="*uid://dlwa6205ehpop"
+Sfx="*uid://uoktgafoth7w"
 
 [display]
 

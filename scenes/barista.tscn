@@ -9,11 +9,19 @@
 [ext_resource type="Texture2D" uid="uid://cp0hlk1y1p0y4" path="res://assets/waste/waste-1.png" id="4_jjuv8"]
 [ext_resource type="Texture2D" uid="uid://bcyfapbqex538" path="res://assets/barista/barista-move-2.png" id="4_k2txo"]
 [ext_resource type="Texture2D" uid="uid://bq4vw2xvlrvbq" path="res://assets/waste/waste-2.png" id="5_igatw"]
+[ext_resource type="Texture2D" uid="uid://c0vo1q3estsb" path="res://assets/waste/waste-3.png" id="6_d6d4y"]
 [ext_resource type="Texture2D" uid="uid://b61dvysd65q33" path="res://assets/wine/wine.png" id="6_m532l"]
 [ext_resource type="Texture2D" uid="uid://dmyl7412u34lq" path="res://assets/wine/grapes.png" id="6_oxob3"]
 [ext_resource type="PackedScene" uid="uid://crfcwsne50c0c" path="res://scenes/helpers/match_visibility.tscn" id="6_swm0g"]
+[ext_resource type="Texture2D" uid="uid://bqabqo8msvhi3" path="res://assets/waste/waste-4.png" id="7_sa6al"]
+[ext_resource type="Texture2D" uid="uid://dtschqh3m4g8o" path="res://assets/waste/waste-5.png" id="8_45guy"]
 [ext_resource type="Shader" uid="uid://vt1pivw4i50f" path="res://resources/barista.gdshader" id="8_oqf8k"]
+[ext_resource type="Texture2D" uid="uid://brsjrhes0scru" path="res://assets/waste/waste-6.png" id="9_6j7o4"]
+[ext_resource type="Texture2D" uid="uid://bj1j0lthmwd14" path="res://assets/waste/waste-7.png" id="10_hxua6"]
+[ext_resource type="Texture2D" uid="uid://cr0p5375rd1ac" path="res://assets/waste/waste-8.png" id="11_0nu0x"]
+[ext_resource type="Texture2D" uid="uid://bdwsg1e7fh15s" path="res://assets/waste/waste-9.png" id="12_ceyuv"]
 [ext_resource type="Texture2D" uid="uid://bvmxmeqve2wgj" path="res://assets/barista/barista-move-3.png" id="12_h6nyy"]
+[ext_resource type="Texture2D" uid="uid://da8js754x43l3" path="res://assets/waste/waste-10.png" id="13_ev8k6"]
 [ext_resource type="Texture2D" uid="uid://bs8re8ox85iw8" path="res://assets/barista/barista-move-4.png" id="13_oqf8k"]
 [ext_resource type="Texture2D" uid="uid://cdi8skgwd0q6h" path="res://assets/barista/barista-swat-1.png" id="14_2j2w1"]
 [ext_resource type="Texture2D" uid="uid://dtg4577gkyarc" path="res://assets/barista/barista-swat-2.png" id="15_g41b4"]
@@ -28,10 +36,34 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("5_igatw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_d6d4y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_sa6al")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_45guy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_6j7o4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_hxua6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_0nu0x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ceyuv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ev8k6")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2j2w1"]
@@ -152,3 +184,5 @@ shape = SubResource("RectangleShape2D_14u3r")
 replication_config = SubResource("SceneReplicationConfig_5fsgc")
 
 [node name="MatchVisibility" parent="." unique_id=459758655 instance=ExtResource("6_swm0g")]
+
+[connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]

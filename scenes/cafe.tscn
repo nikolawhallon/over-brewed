@@ -63,12 +63,15 @@ tile_map_data = PackedByteArray("AAD8//r/AAAAAAAAAAD8//v/AAAAAAEAAAD8//z/AAAAAAE
 tile_set = SubResource("TileSet_un8g3")
 
 [node name="Slot1" parent="." unique_id=956566724 instance=ExtResource("1_0dv7p")]
+z_index = -1
 position = Vector2(-24, 48)
 
 [node name="Slot2" parent="." unique_id=188102306 instance=ExtResource("1_0dv7p")]
+z_index = -1
 position = Vector2(0, 48)
 
 [node name="Slot3" parent="." unique_id=1396646440 instance=ExtResource("1_0dv7p")]
+z_index = -1
 position = Vector2(24, 48)
 
 [node name="BeanBag" parent="." unique_id=1164690060 instance=ExtResource("3_de0wi")]

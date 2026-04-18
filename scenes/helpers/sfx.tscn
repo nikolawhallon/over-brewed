@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://uoktgafoth7w"]
+
+[ext_resource type="Script" uid="uid://cp2vvenwf4svk" path="res://scenes/helpers/sfx.gd" id="1_2elj7"]
+
+[node name="Sfx" type="Node" unique_id=979925131]
+script = ExtResource("1_2elj7")

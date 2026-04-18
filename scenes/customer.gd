@@ -99,6 +99,13 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			cafe.release_slot(self.get_path())
 			target = get_opposite_spawn_area_random_position()
 			state = State.LEAVING
+			var arena = NodeUtils.get_first_ancestor_in_group_for_node(self, "Arena")
+			for peer in NodeUtils.get_first_ancestor_in_group_for_node(self, "App").get_peer_ids_for_match(arena.match_id):
+				if peer == 1:
+					continue
+				Sfx.announce_play_sfx.rpc_id(peer, "assets/sfx/sfx_served.wav")
+
+			Sfx.announce_play_sfx("assets/sfx/sfx_served.wav")
 	if state != State.LEAVING and body.is_in_group("Barista"):
 		if body.holding == "newspaper":
 			if state == State.WAITING:
@@ -107,6 +114,13 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 				cafe.release_slot(self.get_path())
 			target = get_opposite_spawn_area_random_position()
 			state = State.LEAVING
+			var arena = NodeUtils.get_first_ancestor_in_group_for_node(self, "Arena")
+			for peer in NodeUtils.get_first_ancestor_in_group_for_node(self, "App").get_peer_ids_for_match(arena.match_id):
+				if peer == 1:
+					continue
+				Sfx.announce_play_sfx.rpc_id(peer, "assets/sfx/sfx_hit.wav")
+
+			Sfx.announce_play_sfx("assets/sfx/sfx_hit.wav")
 
 	if state == State.COMMUTING and body.is_in_group("Barista"):
 		var arena = NodeUtils.get_first_ancestor_in_group_for_node(self, "Arena")
@@ -117,6 +131,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			if new_target != null:
 				target = new_target
 				state = State.ENTERING
+				for peer in NodeUtils.get_first_ancestor_in_group_for_node(self, "App").get_peer_ids_for_match(arena.match_id):
+					if peer == 1:
+						continue
+					Sfx.announce_play_sfx.rpc_id(peer, "assets/sfx/sfx_invited.wav")
+
+				Sfx.announce_play_sfx("assets/sfx/sfx_invited.wav")
 		elif body.cafe == "right":
 			var cafe = arena.get_node("RightCafe")
 			cafe_path = cafe.get_path()

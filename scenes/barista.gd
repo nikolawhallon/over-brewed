@@ -178,3 +178,15 @@ func request_update_direction(new_direction):
 			facing = "down"
 		if direction.y < 0 and abs(direction.y) > abs(direction.x):
 			facing = "up"
+
+func _on_animated_sprite_2d_animation_looped() -> void:
+	if not multiplayer.is_server():
+		return
+	if $AnimatedSprite2D.animation == "swat":
+		var arena = NodeUtils.get_first_ancestor_in_group_for_node(self, "Arena")
+		for peer in NodeUtils.get_first_ancestor_in_group_for_node(self, "App").get_peer_ids_for_match(arena.match_id):
+			if peer == 1:
+				continue
+			Sfx.announce_play_sfx.rpc_id(peer, "assets/sfx/sfx_swat.wav")
+
+		Sfx.announce_play_sfx("assets/sfx/sfx_swat.wav")
