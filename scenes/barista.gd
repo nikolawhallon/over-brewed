@@ -122,6 +122,33 @@ func _physics_process(_delta: float) -> void:
 
 	velocity = direction * SPEED
 	move_and_slide()
+	
+	for i in range(get_slide_collision_count()):
+		var collision = get_slide_collision(i)
+		var collider = collision.get_collider()
+
+		if collider and collider.is_in_group("Barista"):
+			handle_barista_collision(collider)
+
+func handle_barista_collision(other_barista):
+	var this_had_newspaper = holding == "newspaper"
+	var other_had_newspaper = other_barista.holding == "newspaper"
+
+	if not this_had_newspaper and not other_had_newspaper:
+		return
+
+	var arena = NodeUtils.get_first_ancestor_in_group_for_node(self, "Arena")
+	for peer in NodeUtils.get_first_ancestor_in_group_for_node(self, "App").get_peer_ids_for_match(arena.match_id):
+		if peer == 1:
+			continue
+		Sfx.announce_play_sfx.rpc_id(peer, "assets/sfx/sfx_hit.wav")
+
+	Sfx.announce_play_sfx("assets/sfx/sfx_hit.wav")
+
+	if this_had_newspaper:
+		other_barista.holding = ""
+	if other_had_newspaper:
+		holding = ""
 
 func calculate_new_direction():
 	var keyboard_input = Vector2(
