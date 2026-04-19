@@ -249,7 +249,7 @@ func queue_game(mode: String):
 
 	var server_url = "wss://overbrewed.vacuumbrewstudios.com"
 	if OS.is_debug_build():
-		server_url = "wss://overbrewed.staging.vacuumbrewstudios.com"
+		server_url = "wss://overbrewed.vacuumbrewstudios.com"
 
 	var result = peer.create_client(server_url)
 	if result != OK:
