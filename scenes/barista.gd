@@ -54,8 +54,9 @@ func _input(event):
 			mouse_target = get_global_mouse_position()
 		else:
 			mouse_target = null
-	elif event is InputEventMouseMotion and event.button_mask & MOUSE_BUTTON_MASK_LEFT:
-		mouse_target = get_global_mouse_position()
+	elif event is InputEventMouseMotion:
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			mouse_target = get_global_mouse_position()
 
 func _physics_process(_delta: float) -> void:
 	if holding == "beans":
